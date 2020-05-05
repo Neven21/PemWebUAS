@@ -133,7 +133,7 @@
             transform: scale(0.95);
             }
 
-            input[type=text] {
+            input[type=text],input[type=email] {
             background-color: #f6f6f6;
             border: none;
             color: #0d0d0d;
@@ -154,12 +154,12 @@
             border-radius: 5px 5px 5px 5px;
             }
 
-            input[type=text]:focus {
+            input[type=text],input[type=email]:focus {
             background-color: #fff;
             border-bottom: 2px solid #5fbae9;
             }
 
-            input[type=text]:placeholder {
+            input[type=text],input[type=email]:placeholder {
             color: #cccccc;
             }
 
@@ -290,11 +290,28 @@
               <div class="fadeIn first">
                 <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="Logo" />
               </div>
+
+              @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+              @endif
+
+              @if (count($errors) > 0)
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                      <li> {{ $error }} </li>
+                          @endforeach
+                      </ul>
+              @endif
           
               <!-- Login Form -->
-              <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username" required>
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password" required>
+              <form method="post" action="/login">
+                @csrf
+                <input type="email" id="login" class="fadeIn second" name="email" placeholder="Email" required>
+                <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password" required>
                 <input type="submit" class="fadeIn fourth" value="Log In">
               </form>
           

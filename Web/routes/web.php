@@ -22,3 +22,7 @@ Route::get('/login', 'LoginController@index');
 Route::get('/register', 'RegisterController@index');
 
 Route::post('/register', 'RegisterController@store');
+
+Route::post('/login', 'LoginController@checkLogin');       
+
+Route::get('/home', 'HomeController@index')->name('home');

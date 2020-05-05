@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -37,10 +38,13 @@ class RegisterController extends Controller
     {
        $user = new User;
        $user->username = $request->username;
-       $user->password = $request->password;
+       $user->password = Hash::make($request->password);
+       $user->email = $request->email;
        $user->firstname = $request->lastname;
        $user->lastname = $request->lastname;
        $user->dob = $request->dob;
+       $user->role = 'user';
+       $user->picture = '/';
 
        $user->save();
 
