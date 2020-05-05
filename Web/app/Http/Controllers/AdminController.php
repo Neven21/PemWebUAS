@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
 use App\User;
-use Illuminate\Support\Facades\DB;
 
-class LoginController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,39 +14,12 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('Login.index');
-    }
+        $emaildata = session('emaildata');
 
-    public function checkLogin(Request $request)
-    {
-        $this->validate($request, [
-            'email'      =>  'required|email',
-            'password'      =>  'required'
-        ]);
-
-        $user_data = array(
-            'email' => $request->get('email'),
-            'password' => $request->get('password')
-        );
-
-        if(Auth::attempt($user_data))
-        {
-            $user = User::where('email',$user_data['email'])->first();
-            // dump($user);
-            if($user['role'] == 'admin')
-            {
-                return redirect('/adminhome')->with('emaildata',$user_data['email']);
-            }
-            else
-            {
-                return 'user';
-            }
-
-        }
-        else
-        {
-            return back()->with('error', 'Email or Password incorrect');
-        }
+        $user = User::where('email',$emaildata)->first();
+        // dump($user);
+        $name = $user['firstname']. ' ' . $user['lastname'];
+        return view('Admin.index')->withName($name);
     }
 
     /**

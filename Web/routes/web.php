@@ -21,6 +21,8 @@ Route::get('/login', 'LoginController@index');
 
 Route::get('/register', 'RegisterController@index');
 
+Route::get('/adminhome', 'AdminController@index');
+
 Route::post('/register', 'RegisterController@store');
 
 Route::post('/login', 'LoginController@checkLogin');       

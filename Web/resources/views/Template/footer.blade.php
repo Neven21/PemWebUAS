@@ -115,7 +115,7 @@
 			</div>	
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-					<p><u><a href="https://www.nationaltransaction.com/">Authentic Restaurant</a></u> is a Registered Under The Table</p>
+					<p><u><a href="">Authentic Restaurant</a></u> is a Registered Under The Table</p>
 					<p class="h6">© All Rights Reserved.<a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Authentic Restaurant</a></p>
 				</div>
 				<hr>
