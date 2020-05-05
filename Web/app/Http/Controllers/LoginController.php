@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use App\User;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -33,7 +35,17 @@ class LoginController extends Controller
 
         if(Auth::attempt($user_data))
         {
-            return 'log';
+            $user = User::where('email',$user_data['email'])->first();
+            // dump($user);
+            if($user['role'] == 'admin')
+            {
+                return 'admin';
+            }
+            else
+            {
+                return 'user';
+            }
+
         }
         else
         {
