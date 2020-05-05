@@ -79,13 +79,13 @@
                 <li class="nav-item active">
                 <a class="nav-link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                   <a class="nav-link" href="/login">Login</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                   <a class="nav-link" href="#">Pricing</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                   <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
               </ul>
@@ -162,5 +162,7 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
+          
+          @include('Template.footer');
     </body>
 </html>

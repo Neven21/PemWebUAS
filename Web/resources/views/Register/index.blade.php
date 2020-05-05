@@ -295,12 +295,15 @@
               <form>
                 <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username" required>
                 <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password" required>
-                <input type="submit" class="fadeIn fourth" value="Log In">
+                <input type="text" id="firstname" class="fadeIn third" name="login" placeholder="First Name" required>
+                <input type="text" id="lastname" class="fadeIn third" name="login" placeholder="Last Name" required>
+                <input type="text" id="dob" class="fadeIn third" name="login" placeholder="DoB" required>
+                <input type="submit" class="fadeIn fourth" value="Register">
               </form>
           
             
               <div id="formFooter">
-                <a class="underlineHover" href="/register">Don't Have an Account Yet? Register Now!</a>
+                <a class="underlineHover" href="/login">Already Have an Account? Login Now!</a>
                 <a class="underlineHover" href="/">Go Back To Home</a>
               </div>
           
