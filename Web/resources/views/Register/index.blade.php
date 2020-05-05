@@ -163,6 +163,36 @@
             color: #cccccc;
             }
 
+            input[type=date] {
+            background-color: #f6f6f6;
+            border: none;
+            color: #0d0d0d;
+            padding: 15px 0px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            width: 85%;
+            border: 2px solid #f6f6f6;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -ms-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            }
+
+            input[type=date]:focus {
+            background-color: #fff;
+            border-bottom: 2px solid #5fbae9;
+            }
+
+            input[type=date]:placeholder {
+            color: #cccccc;
+            }
+
 
 
             /* ANIMATIONS */
@@ -291,17 +321,17 @@
                 <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="Logo" />
               </div>
           
-              <!-- Login Form -->
-              <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username" required>
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password" required>
-                <input type="text" id="firstname" class="fadeIn third" name="login" placeholder="First Name" required>
-                <input type="text" id="lastname" class="fadeIn third" name="login" placeholder="Last Name" required>
-                <input type="text" id="dob" class="fadeIn third" name="login" placeholder="DoB" required>
+              <!-- Register Form -->
+              <form method="post" action="/register">
+                @csrf
+                <input type="text" id="login" class="fadeIn second" name="username" placeholder="Username" required>
+                <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password" required>
+                <input type="text" id="firstname" class="fadeIn third" name="firstname" placeholder="First Name" required>
+                <input type="text" id="lastname" class="fadeIn third" name="lastname" placeholder="Last Name" required>
+                <input type="date" id="day" class="fadeIn third" name="dob" placeholder="Day" required>
                 <input type="submit" class="fadeIn fourth" value="Register">
               </form>
           
-            
               <div id="formFooter">
                 <a class="underlineHover" href="/login">Already Have an Account? Login Now!</a>
                 <a class="underlineHover" href="/">Go Back To Home</a>
