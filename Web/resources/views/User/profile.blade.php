@@ -347,8 +347,12 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-         <ul class="nav navbar-nav ml-auto"> <a href="/userprofile"> <span class="fa fa-user-circle-o"> </span> Welcome {{$name}} </a> <a href="/logout"> Log Out </a> </ul>        
+         <ul class="nav navbar-nav ml-auto"> Your Profile </ul>      
       </nav>
+      {{$userdata['username']}}<br>
+      {{$userdata['email']}}<br>
+      {{$userdata['firstname'] . $userdata['lastname']}}<br>
+      {{$userdata['dob']}}<br>
 
       @include('Template.footer');
 </body>

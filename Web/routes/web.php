@@ -19,12 +19,16 @@ Route::get('/', function () {
 
 Route::get('/login', 'LoginController@index');
 
+Route::get('/logout', 'LoginController@logout');
+
 Route::get('/register', 'RegisterController@index');
 
 Route::get('/adminhome', 'AdminController@index');
 
 Route::post('/register', 'RegisterController@store');
 
-Route::post('/login', 'LoginController@checkLogin');       
+Route::post('/login', 'LoginController@checkLogin');      
+
+Route::get('/userprofile', 'UserProfileController@index');  
 
 Route::get('/home', 'HomeController@index')->name('home');

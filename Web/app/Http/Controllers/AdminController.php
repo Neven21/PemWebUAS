@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Session;
 
 class AdminController extends Controller
 {
@@ -14,12 +15,18 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $emaildata = session('emaildata');
-
-        $user = User::where('email',$emaildata)->first();
-        // dump($user);
-        $name = $user['firstname']. ' ' . $user['lastname'];
-        return view('Admin.index')->withName($name);
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            // dump($user);
+            $name = $user['firstname']. ' ' . $user['lastname'];
+            return view('Admin.index')->withName($name);
+        }
+        else
+        {
+            return 'aj* login dulu dong bangsa*';
+        }
     }
 
     /**

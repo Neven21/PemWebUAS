@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
-use App\User;
-use Illuminate\Support\Facades\DB;
 use Session;
+use App\User;
 
-class LoginController extends Controller
+class UserProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,48 +15,22 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('Login.index');
-    }
-
-    public function checkLogin(Request $request)
-    {
-        $this->validate($request, [
-            'email'      =>  'required|email',
-            'password'      =>  'required'
-        ]);
-
-        $user_data = array(
-            'email' => $request->get('email'),
-            'password' => $request->get('password')
-        );
-
-        if(Auth::attempt($user_data))
+        if(Session::has('emaildata'))
         {
-            $user = User::where('email',$user_data['email'])->first();
-            // dump($user);
-            if($user['role'] == 'admin')
-            {
-                Session::put('emaildata',$user_data['email']);
-                return redirect('/adminhome');
-            }
-            else
-            {
-                return 'user';
-            }
-
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            // $username = $user['username'];
+            // $email = $user['email'];
+            // $name = $user['firstname']. ' ' . $user['lastname'];
+            // $dob = $user['dob'];
+            return view('User.profile')->withUserdata($user);
         }
         else
         {
-            return back()->with('error', 'Email or Password incorrect');
+            return 'profile siapa yg lu minta bangsa* org belom login aj*';
         }
     }
 
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        Session::flush();
-        return redirect('/');
-    }
     /**
      * Show the form for creating a new resource.
      *
