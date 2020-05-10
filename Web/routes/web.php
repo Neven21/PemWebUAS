@@ -32,3 +32,5 @@ Route::post('/login', 'LoginController@checkLogin');
 Route::get('/userprofile', 'UserProfileController@index');  
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/products/{product}','AdminController@show');

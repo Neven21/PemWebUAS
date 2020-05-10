@@ -349,25 +349,14 @@
         </button>
          <ul class="nav navbar-nav ml-auto"> <a href="/userprofile"> <span class="fa fa-user-circle-o"> </span> Welcome {{$name}} </a> <a href="/logout"> Log Out </a> </ul>        
       </nav>
-      <div class="card-deck">
-        @foreach ($products as $prd)
-        @if(($loop->iteration%3)==1)
-            </div><div class="card-deck">
-        @endif
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{$prd->ProductName}}</h5>
-                    <p class="card-text">{{$prd->Description}}</p>
-                    <p class="card-text">Kategori   : {{$prd->Category}}</p>
-                    <p class="card-text">Stock      : {{$prd->Stock}}</p><br>
-                    <a href="/products/{{ $prd->id }}" class="btn btn-primary">Detail</a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        @endforeach
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{$products->ProductName}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{$products->Category}}</h6>
+            <p class="card-text">{{$products->Description}}</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
     </div>
-    @include('Template.footer');
+    @include('Template.footer')
 </body>

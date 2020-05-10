@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Product;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class AdminController extends Controller
@@ -20,8 +22,9 @@ class AdminController extends Controller
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
             // dump($user);
+            $products = Product::all();
             $name = $user['firstname']. ' ' . $user['lastname'];
-            return view('Admin.index')->withName($name);
+            return view('Admin.index',['products'=>$products])->withName($name);
         }
         else
         {
@@ -58,7 +61,20 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            // dump($user);
+            $products = Product::Find($id);
+            $name = $user['firstname']. ' ' . $user['lastname'];
+            return view('Products.admin',['products'=>$products])->withName($name);
+        }
+        else
+        {
+            return 'aj* login dulu dong bangsa*';
+        }
+        
     }
 
     /**
