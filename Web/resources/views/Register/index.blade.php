@@ -133,7 +133,7 @@
             transform: scale(0.95);
             }
 
-            input[type=text] {
+            input[type=text], input[type=password] {
             background-color: #f6f6f6;
             border: none;
             color: #0d0d0d;
@@ -154,12 +154,12 @@
             border-radius: 5px 5px 5px 5px;
             }
 
-            input[type=text]:focus {
+            input[type=text]:focus, input[type=password]:focus {
             background-color: #fff;
             border-bottom: 2px solid #5fbae9;
             }
 
-            input[type=text]:placeholder {
+            input[type=text]:placeholder, input[type=password]:placeholder {
             color: #cccccc;
             }
 
@@ -372,7 +372,7 @@
                 @csrf
                 <input type="text" id="login" class="fadeIn second" name="username" placeholder="Username" required>
                 <input type="email" id="login" class="fadeIn second" name="email" placeholder="Email" required>
-                <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password" required>
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
                 <input type="text" id="firstname" class="fadeIn third" name="firstname" placeholder="First Name" required>
                 <input type="text" id="lastname" class="fadeIn third" name="lastname" placeholder="Last Name" required>
                 <input type="date" id="day" class="fadeIn third" name="dob" placeholder="Day" required>

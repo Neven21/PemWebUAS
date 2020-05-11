@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserProfileController extends Controller
 {
@@ -27,8 +28,58 @@ class UserProfileController extends Controller
         }
         else
         {
-            return 'profile siapa yg lu minta bangsa* org belom login aj*';
+            return 'UNAUTHORIZED ACCESS';
         }
+    }
+
+    public function editindex()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            return view('User.editprofile')->withUserdata($user);
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    public function edit(Request $request)
+    {
+    
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            
+            $user->password = Hash::make($request->password);
+            $user->email = $request->email;
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->dob = $request->dob;
+
+            Session::put('emaildata',$request->email);
+
+            // $user->picture = '/';
+
+            $user->save();
+
+            if($user->role == 'admin')
+            {
+                return redirect('/adminhome');
+            }
+            else
+            {
+                return redirect('/home');
+            }
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+
     }
 
     /**
@@ -69,7 +120,7 @@ class UserProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editedit($id)
     {
         //
     }

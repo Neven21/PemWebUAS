@@ -12,7 +12,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/assets/fa/css/font-awesome.min.css">
+    {{-- <link rel="stylesheet" href="../assets/fa/css/font-awesome.min.css"> --}}
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     
@@ -355,7 +355,7 @@
             </div><div class="card-deck">
         @endif
             <div class="card">
-                <img src="..." class="card-img-top" alt="...">
+                <img  class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$prd->ProductName}}</h5>
                     <p class="card-text">{{$prd->Description}}</p>

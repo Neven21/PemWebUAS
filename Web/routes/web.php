@@ -34,3 +34,11 @@ Route::get('/userprofile', 'UserProfileController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/products/{product}','AdminController@show');
+
+Route::get('/editprofile','UserProfileController@editindex');
+
+Route::post('/editprofile', 'UserProfileController@edit');
+
+Route::get('/editproduct/{product}','AdminController@editindex');
+
+Route::post('/editproduct','AdminController@update');

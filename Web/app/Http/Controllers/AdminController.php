@@ -28,7 +28,7 @@ class AdminController extends Controller
         }
         else
         {
-            return 'aj* login dulu dong bangsa*';
+            return 'UNAUTHORIZED ACCESS';
         }
     }
 
@@ -72,9 +72,22 @@ class AdminController extends Controller
         }
         else
         {
-            return 'aj* login dulu dong bangsa*';
+            return 'UNAUTHORIZED ACCESS';
         }
         
+    }
+
+    public function editindex($id)
+    {
+        if(Session::has('emaildata'))
+        {
+            $products = Product::Find($id);
+            return view('Products.editproduct',['products'=>$products]);
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
     }
 
     /**
@@ -95,9 +108,26 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        if(Session::has('emaildata'))
+        {
+            $product = Product::where('id',$request->id)->first();
+            
+            $product->ProductName = $request->name;
+            $product->Category = $request->category;
+            $product->Description = $request->desc;
+            $product->Stock = $request->stock;
+            // $product->Image = '/';
+
+            $product->save();
+
+            return redirect('/adminhome');
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
     }
 
     /**

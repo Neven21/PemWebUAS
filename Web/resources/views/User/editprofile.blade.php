@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Login</title>
+        <title>Edit Profile</title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -133,7 +133,7 @@
             transform: scale(0.95);
             }
 
-            input[type=text],input[type=email], input[type=password] {
+            input[type=text], input[type=password] {
             background-color: #f6f6f6;
             border: none;
             color: #0d0d0d;
@@ -154,12 +154,72 @@
             border-radius: 5px 5px 5px 5px;
             }
 
-            input[type=text]:focus,input[type=email]:focus, input[type=password]:focus {
+            input[type=text]:focus, input[type=password]:focus {
             background-color: #fff;
             border-bottom: 2px solid #5fbae9;
             }
 
-            input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]:placeholder {
+            input[type=text]:placeholder, input[type=password]:placeholder {
+            color: #cccccc;
+            }
+
+            input[type=date] {
+            background-color: #f6f6f6;
+            border: none;
+            color: #0d0d0d;
+            padding: 15px 0px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            width: 85%;
+            border: 2px solid #f6f6f6;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -ms-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            }
+
+            input[type=date]:focus {
+            background-color: #fff;
+            border-bottom: 2px solid #5fbae9;
+            }
+
+            input[type=date]:placeholder {
+            color: #cccccc;
+            }
+
+            input[type=email] {
+            background-color: #f6f6f6;
+            border: none;
+            color: #0d0d0d;
+            padding: 15px 0px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            width: 85%;
+            border: 2px solid #f6f6f6;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -ms-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            }
+
+            input[type=email]:focus {
+            background-color: #fff;
+            border-bottom: 2px solid #5fbae9;
+            }
+
+            input[type=email]:placeholder {
             color: #cccccc;
             }
 
@@ -288,38 +348,21 @@
           
               <!-- Icon -->
               <div class="fadeIn first">
-                <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="Logo" />
+                <h3> Edit Your Profile </h3>
               </div>
-
-              @if ($message = Session::get('error'))
-                <div class="alert alert-danger alert-block">
-                    <button type="button" class="close" data-dismiss="alert">x</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-              @endif
-
-              @if (count($errors) > 0)
-                  <div class="alert alert-danger">
-                      <ul>
-                          @foreach ($errors->all() as $error)
-                      <li> {{ $error }} </li>
-                          @endforeach
-                      </ul>
-              @endif
-          
-              <!-- Login Form -->
-              <form method="post" action="/login">
-                @csrf
-                <input type="email" id="login" class="fadeIn second" name="email" placeholder="Email" required>
-                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
-                <input type="submit" class="fadeIn fourth" value="Log In">
-              </form>
           
             
-              <div id="formFooter">
-                <a class="underlineHover" href="/register">Don't Have an Account Yet? Register Now!</a>
-                <a class="underlineHover" href="/">Go Back To Home</a>
-              </div>
+              <!-- Register Form -->
+              <form method="post" action="/editprofile">
+                @csrf
+                <input type="text" id="login" class="fadeIn second" name="username" placeholder="Username" value=" {{$userdata['username']}}" required disabled>
+                <input type="email" id="login" class="fadeIn second" name="email" placeholder="Email" value=" {{$userdata['email']}}" required>
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+                <input type="text" id="firstname" class="fadeIn third" name="firstname" placeholder="First Name" value=" {{$userdata['firstname']}}"required>
+                <input type="text" id="lastname" class="fadeIn third" name="lastname" placeholder="Last Name" value=" {{$userdata['lastname']}}" required>
+                <input type="date" id="day" class="fadeIn third" name="dob" placeholder="Day" value=" {{$userdata['dob']}}" required>
+                <input type="submit" class="fadeIn fourth" value="Update">
+              </form>
           
             </div>
           </div>

@@ -354,8 +354,7 @@
             <h5 class="card-title">{{$products->ProductName}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{$products->Category}}</h6>
             <p class="card-text">{{$products->Description}}</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            <a href="/editproduct/{{ $products->id }}"> <button type="button" class="btn btn-primary"> Edit Product </button> </a>
         </div>
     </div>
     @include('Template.footer')

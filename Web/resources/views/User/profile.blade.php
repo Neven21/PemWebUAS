@@ -354,5 +354,7 @@
       {{$userdata['firstname'] . $userdata['lastname']}}<br>
       {{$userdata['dob']}}<br>
 
+      <a href="/editprofile"> <button type="button" class="btn btn-primary"> Edit Profile </button> </a>
+
       @include('Template.footer');
 </body>
