@@ -439,8 +439,7 @@
                 <img  class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$prd->ProductName}}</h5>
-                    <p class="card-text">Kategori   : {{$prd->Category}}</p>
-                    <p class="card-text">Harga      : Rp {{$prd->Harga}},-</p><br>
+                    <p class="card-text">Kategori   : {{$prd->Category}}</p> <br>
                     <a href="/productdetail/{{ $prd->id }}" class="btn btn-primary">Detail</a>
                 </div>
                 <div class="card-footer">

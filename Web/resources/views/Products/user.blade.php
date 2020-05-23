@@ -353,8 +353,13 @@
         <div class="card-body">
             <h5 class="card-title">{{$products->ProductName}}</h5>
             <p class="card-text">{{$products->Description}}</p>
-            <p class="card-text">Stock      : {{$products->Stock}}</p>
-            <a href="/editproduct/{{ $products->id }}"> <button type="button" class="btn btn-primary"> Edit Product </button> </a>
+            <p class="card-text">Harga      : Rp {{$products->Harga}},-</p>
+            <form method="post" action="/addtocart">
+                @csrf
+                Total: <input type="number" placeholder="Amount" name="jumlah" value="0"/> <br>
+                <input type="hidden" name="id" value="{{ $products->id }}"/> <br>
+                <input type="submit" class="fadein" value="Add to Cart">
+            </form>
         </div>
     </div>
     @include('Template.footer')
