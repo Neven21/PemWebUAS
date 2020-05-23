@@ -42,3 +42,8 @@ Route::post('/editprofile', 'UserProfileController@edit');
 Route::get('/editproduct/{product}','AdminController@editindex');
 
 Route::post('/editproduct','AdminController@update');
+
+Route::get('/addproduct','AdminController@createindex');
+
+Route::post('/addproduct','AdminController@store');
+

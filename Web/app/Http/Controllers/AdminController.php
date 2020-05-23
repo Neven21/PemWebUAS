@@ -37,9 +37,16 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createindex()
     {
-        //
+        if(Session::has('emaildata'))
+        {
+            return view('Products.addproduct');
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
     }
 
     /**
@@ -50,7 +57,21 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'kategori'     =>  'required',
+        ]);
+
+        $product = new Product;
+        
+        $product->Category = $request->kategori;
+        $product->ProductName = $request->name;
+        $product->Stock = $request->stock;
+        $product->Description = $request->description;
+        $product->Image = '/';
+
+        $product->save();
+
+        return redirect('/adminhome');
     }
 
     /**
