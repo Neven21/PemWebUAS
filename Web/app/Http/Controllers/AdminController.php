@@ -159,6 +159,10 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::where('id',$id)->first();
+
+        $product->forceDelete();
+
+        return redirect('/adminhome');
     }
 }

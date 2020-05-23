@@ -47,3 +47,5 @@ Route::get('/addproduct','AdminController@createindex');
 
 Route::post('/addproduct','AdminController@store');
 
+Route::get('/deleteproduct/{product}','AdminController@destroy');
+

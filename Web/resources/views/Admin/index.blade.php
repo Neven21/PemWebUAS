@@ -363,6 +363,7 @@
                     <p class="card-text">Kategori   : {{$prd->Category}}</p>
                     <p class="card-text">Stock      : {{$prd->Stock}}</p><br>
                     <a href="/products/{{ $prd->id }}" class="btn btn-primary">Detail</a>
+                    <a href="/deleteproduct/{{ $prd->id }}" class="btn btn-danger">Delete</a>
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
