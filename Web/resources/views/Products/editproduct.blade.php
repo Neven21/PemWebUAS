@@ -359,6 +359,7 @@
                 <input type="text" id="login" class="fadeIn second" name="category" placeholder="Email" value="{{$products->Category}}" required>
                 <input type="text" id="firstname" class="fadeIn third" name="desc" placeholder="First Name" value="{{$products->Description}}"required>
                 <input type="number" id="lastname" class="fadeIn third" name="stock" placeholder="Last Name" value="{{$products->Stock}}" required>
+                <input type="number" id="lastname" class="fadeIn third" name="harga" placeholder="Price" value="{{$products->Harga}}" required>
                 <input type="hidden" id="lastname" class="fadeIn third" name="id" placeholder="Last Name" value="{{$products->id}}" required>
                 <input type="submit" class="fadeIn fourth" value="Update">
               </form>

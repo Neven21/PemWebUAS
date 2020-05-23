@@ -72,7 +72,7 @@ class UserProfileController extends Controller
             }
             else
             {
-                return redirect('/home');
+                return redirect('/userhome');
             }
         }
         else

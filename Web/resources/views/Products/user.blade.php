@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Home</title>
+    <title>Product Detail</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -12,7 +12,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    {{-- <link rel="stylesheet" href="../assets/fa/css/font-awesome.min.css"> --}}
+    <link rel="stylesheet" href="/assets/fa/css/font-awesome.min.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     
@@ -349,28 +349,13 @@
         </button>
          <ul class="nav navbar-nav ml-auto"> <a href="/userprofile"> <span class="fa fa-user-circle-o"> </span> Welcome {{$name}} </a> <a href="/logout"> Log Out </a> </ul>        
       </nav>
-      <a href="/addproduct" class="btn btn-primary">Add Product</a>
-      <div class="card-deck">
-        @foreach ($products as $prd)
-        @if(($loop->iteration%3)==1)
-            </div><div class="card-deck">
-        @endif
-            <div class="card">
-                <img  class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{$prd->ProductName}}</h5>
-                    <p class="card-text">{{$prd->Description}}</p>
-                    <p class="card-text">Kategori   : {{$prd->Category}}</p>
-                    <p class="card-text">Stock      : {{$prd->Stock}}</p>
-                    <p class="card-text">Harga      : Rp {{$prd->Harga}},-</p><br>
-                    <a href="/products/{{ $prd->id }}" class="btn btn-primary">Detail</a>
-                    <a href="/deleteproduct/{{ $prd->id }}" class="btn btn-danger">Delete</a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        @endforeach
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{$products->ProductName}}</h5>
+            <p class="card-text">{{$products->Description}}</p>
+            <p class="card-text">Stock      : {{$products->Stock}}</p>
+            <a href="/editproduct/{{ $products->id }}"> <button type="button" class="btn btn-primary"> Edit Product </button> </a>
+        </div>
     </div>
-    @include('Template.footer');
+    @include('Template.footer')
 </body>

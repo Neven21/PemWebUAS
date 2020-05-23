@@ -49,3 +49,10 @@ Route::post('/addproduct','AdminController@store');
 
 Route::get('/deleteproduct/{product}','AdminController@destroy');
 
+Route::get('/userhome','UserController@index');
+
+Route::get('/productlist','UserController@orderindex');
+
+Route::get('/productdetail/{product}','UserController@productdetail');
+
+

@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
 use App\User;
+use App\Product;
 use Illuminate\Support\Facades\DB;
 use Session;
 
-class LoginController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,49 +17,56 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('Login.index');
-    }
-
-    public function checkLogin(Request $request)
-    {
-        $this->validate($request, [
-            'email'      =>  'required|email',
-            'password'      =>  'required'
-        ]);
-
-        $user_data = array(
-            'email' => $request->get('email'),
-            'password' => $request->get('password')
-        );
-
-        if(Auth::attempt($user_data))
+        if(Session::has('emaildata'))
         {
-            $user = User::where('email',$user_data['email'])->first();
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
             // dump($user);
-            if($user['role'] == 'admin')
-            {
-                Session::put('emaildata',$user_data['email']);
-                return redirect('/adminhome');
-            }
-            else
-            {
-                Session::put('emaildata',$user_data['email']);
-                return redirect('/userhome');
-            }
-
+            $products = Product::all();
+            $name = $user['firstname']. ' ' . $user['lastname'];
+            return view('User.index',['products'=>$products])->withName($name);
         }
         else
         {
-            return back()->with('error', 'Email or Password incorrect');
+            return 'UNAUTHORIZED ACCESS';
         }
     }
 
-    public function logout(Request $request)
+    public function orderindex()
     {
-        Auth::logout();
-        Session::flush();
-        return redirect('/');
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            // dump($user);
+            $products = Product::all();
+            $name = $user['firstname']. ' ' . $user['lastname'];
+            return view('User.productlist',['products'=>$products])->withName($name);
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
     }
+
+    public function productdetail($id)
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            // dump($user);
+            $products = Product::Find($id);
+            $name = $user['firstname']. ' ' . $user['lastname'];
+            return view('Products.user',['products'=>$products])->withName($name);
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

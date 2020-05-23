@@ -363,6 +363,7 @@
                 <input type="text" id="login" class="fadeIn second" name="name" placeholder="Product Name" required>
                 <input type="number" id="lastname" class="fadeIn third" name="stock" placeholder="Stock" required>
                 <input type="text" id="lastname" class="fadeIn third" name="description" placeholder="Description" required>
+                <input type="number" id="lastname" class="fadeIn third" name="harga" placeholder="Price" required>
                 <input type="submit" class="fadeIn fourth" value="Add Product">
               </form>
           

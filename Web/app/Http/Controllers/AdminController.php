@@ -67,6 +67,7 @@ class AdminController extends Controller
         $product->ProductName = $request->name;
         $product->Stock = $request->stock;
         $product->Description = $request->description;
+        $product->Harga = $request->harga;
         $product->Image = '/';
 
         $product->save();
@@ -139,6 +140,7 @@ class AdminController extends Controller
             $product->Category = $request->category;
             $product->Description = $request->desc;
             $product->Stock = $request->stock;
+            $product->Harga = $request->harga;
             // $product->Image = '/';
 
             $product->save();
