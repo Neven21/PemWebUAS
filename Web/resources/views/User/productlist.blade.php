@@ -430,6 +430,7 @@
           <ul class="nav navbar-nav ml-auto"> <a href="/userprofile"> <span class="fa fa-user-circle-o"> </span> Welcome {{$name}} </a> <a href="/logout"> Log Out </a> </ul>
         </div>
       </nav>
+      <a href="/shoppingcart" class="btn btn-primary">View Cart</a>
       <div class="card-deck">
         @foreach ($products as $prd)
         @if(($loop->iteration%3)==1)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Product;
+use App\Cart;
 use Illuminate\Support\Facades\DB;
 use Session;
 
@@ -66,6 +67,62 @@ class UserController extends Controller
         }
     }
 
+    public function addtocart(Request $request)
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            // dump($user);
+            $products = Product::Find($request->id);
+
+            $cart = new Cart;
+
+            $totalharga = $products['Harga'] * $request->jumlah;
+        
+            $cart->username = $user['username'];
+            $cart->product_name = $products->ProductName;
+            $cart->qty = $request->jumlah;
+            $cart->price = $products->Harga;
+
+            $cart->save();
+
+            return redirect('/productlist');
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    public function showcart()
+    {
+        if(Session::has('emaildata'))
+        {
+            $carts = Cart::all();
+            $total = 0;
+            foreach($carts as $crt)
+            {
+                $total = $total + ($crt->qty * $crt->price); //MSH error, harganya 2x lipet
+            }
+            return view('User.carttemp',['carts'=>$carts])->withTotal($total);
+
+
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    public function destroycart($id)
+    {
+        $cart = Cart::where('cart_id',$id)->first();
+
+        $cart->forceDelete();
+
+        return redirect('/productlist');
+    }
 
     /**
      * Show the form for creating a new resource.

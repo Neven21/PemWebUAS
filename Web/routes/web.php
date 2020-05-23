@@ -55,4 +55,10 @@ Route::get('/productlist','UserController@orderindex');
 
 Route::get('/productdetail/{product}','UserController@productdetail');
 
+Route::post('/addtocart','UserController@addtocart');
+
+Route::get('/shoppingcart','UserController@showcart');
+
+Route::get('/deletecart/{cart}','UserController@destroycart');
+
 
