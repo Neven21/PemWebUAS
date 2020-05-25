@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Product;
 use App\Product_order;
+use App\User_order;
 use Illuminate\Support\Facades\DB;
 use Session;
 
@@ -184,7 +185,6 @@ class AdminController extends Controller
     public function destroyorder($id)
     {
         $order = Product_order::where('order_id',$id)->first();
-
         $order->forceDelete();
 
         return redirect('/orderlist');

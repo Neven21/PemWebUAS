@@ -67,5 +67,9 @@ Route::get('/orderlist','AdminController@showorders');
 
 Route::get('/deleteorder/{order}','AdminController@destroyorder');
 
+Route::get('/orderhistory','UserController@showorderhistory');
+
+Route::post('/giverating','UserController@giverating');
+
 
 

@@ -431,6 +431,7 @@
         </div>
       </nav>
       <a href="/shoppingcart" class="btn btn-primary">View Cart</a>
+      <a href="/orderhistory" class="btn btn-primary">View Order History</a>
       @if ($message = Session::get('error'))
                 <div class="alert alert-danger alert-block">
                     <button type="button" class="close" data-dismiss="alert">x</button>
@@ -447,6 +448,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{$prd->ProductName}}</h5>
                     <p class="card-text">Kategori   : {{$prd->Category}}</p> <br>
+                    <p class="card-text">Rating   : {{$prd->avg_rating}}</p> <br>
                     <a href="/productdetail/{{ $prd->id }}" class="btn btn-primary">Detail</a>
                 </div>
                 <div class="card-footer">

@@ -364,6 +364,7 @@
                     <p class="card-text">Kategori   : {{$prd->Category}}</p>
                     <p class="card-text">Stock      : {{$prd->Stock}}</p>
                     <p class="card-text">Harga      : Rp {{$prd->Harga}},-</p><br>
+                    <p class="card-text">Rating      : {{$prd->avg_rating}}</p><br>
                     <a href="/products/{{ $prd->id }}" class="btn btn-primary">Detail</a>
                     <a href="/deleteproduct/{{ $prd->id }}" class="btn btn-danger">Delete</a>
                 </div>
