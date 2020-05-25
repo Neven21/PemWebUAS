@@ -356,7 +356,7 @@
             <p class="card-text">Harga      : Rp {{$products->Harga}},-</p>
             <form method="post" action="/addtocart">
                 @csrf
-                Total: <input type="number" placeholder="Amount" name="jumlah" value="0"/> <br>
+                Total: <input type="number" placeholder="Amount" name="jumlah" min="1" value="1"/> <br>
                 <input type="hidden" name="id" value="{{ $products->id }}"/> <br>
                 <input type="submit" class="fadein" value="Add to Cart">
             </form>

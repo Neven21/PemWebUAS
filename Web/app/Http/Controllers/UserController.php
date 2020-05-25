@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Product;
 use App\Cart;
+use App\Product_order;
 use Illuminate\Support\Facades\DB;
 use Session;
 
@@ -67,6 +68,27 @@ class UserController extends Controller
         }
     }
 
+    public function showcart()
+    {
+        if(Session::has('emaildata'))
+        {
+            $carts = Cart::all();
+            $total = 0;
+
+            foreach($carts as $crt)
+            {
+                $total = $total + ($crt->qty * $crt->price);
+            }
+            
+            return view('User.carttemp',['carts'=>$carts])->withTotal($total);
+
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
     public function addtocart(Request $request)
     {
         if(Session::has('emaildata'))
@@ -95,20 +117,27 @@ class UserController extends Controller
         }
     }
 
-    public function showcart()
+    public function placeorder(Request $request)
     {
         if(Session::has('emaildata'))
         {
-            $carts = Cart::all();
-            $total = 0;
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            // dump($user);
+            $products = Product::Find($request->id);
 
-            foreach($carts as $crt)
-            {
-                $total = $total + ($crt->qty * $crt->price);
-            }
-            
-            return view('User.carttemp',['carts'=>$carts])->withTotal($total);
+            $order = new Product_order;
 
+            $total = $request->totalall;
+
+            $order->username = $user['username'];
+            $order->total_price = $total;
+
+            $order->save();
+
+            $cart = Cart::where('username',$user['username'])->delete();
+
+            return redirect('/productlist');
         }
         else
         {
