@@ -24,7 +24,8 @@ class UserProfileController extends Controller
             // $email = $user['email'];
             // $name = $user['firstname']. ' ' . $user['lastname'];
             // $dob = $user['dob'];
-            return view('User.profile')->withUserdata($user);
+            $name = $user['firstname']. ' ' . $user['lastname'];
+            return view('User.profile')->withUserdata($user)->withName($name);
         }
         else
         {

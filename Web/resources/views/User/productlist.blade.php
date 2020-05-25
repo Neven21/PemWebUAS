@@ -56,25 +56,37 @@ html {
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link" href="/userhome">Home</a>
                 </li>
-                <li class="nav-item active" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="/productlist">Menu</a>
+                <li class="nav-item" style="padding-left:5px; padding-right:5px; border-bottom: 2px solid #a98e68;">
+                    <a class="nav-link" style="color: #a98e68;" href="/userhome">Menu</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link" href="/cart">Cart</a>
                 </li>
+                <li class="nav-item" style="padding-left:5px; padding-right:5px;">
+                    <a class="nav-link" href="#">History</a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link menu" href="/userprofile">Welcome {{$name}}</a>
-                </li>
-                <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link menu" href="/logout">Sign Out</a>
-                    <!-- <a class="nav-link menu" href="/login">Login</a> -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Welcome {{$name}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/userprofile">Profile</a>
+                    <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout">Sign Out</a>
+                    </div>
                 </li>
             </ul>
         </div>
     </nav>
-
+    <a href="/shoppingcart" class="btn btn-primary">View Cart</a>
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>{{ $message }}</strong>
+        </div>
+     @endif
     <div class="full-height mx-auto" style="width:80%;">
         <div style="padding-top:50px;">
             <div class="row text-center">  
@@ -84,7 +96,7 @@ html {
                         <img  class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"><b>{{$prd->ProductName}}</b></h5>
-                            <p class="card-text">Kategori : {{$prd->Category}}</p><br>
+                            <p class="card-text">Price : Rp.{{$prd->Harga}}</p><br>
                             <a href="/productdetail/{{ $prd->id }}" class="btn btn-primary">Detail</a>
                         </div>
                     </div>

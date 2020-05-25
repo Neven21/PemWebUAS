@@ -52,10 +52,10 @@ html {
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse menu" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="/userhome">Home</a>
+                <li class="nav-item" style="padding-left:5px; padding-right:5px; border-bottom: 2px solid #a98e68;">
+                    <a class="nav-link" style="color: #a98e68;" href="/userhome">Home</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link" href="/productlist">Menu</a>
@@ -63,14 +63,20 @@ html {
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link" href="/cart">Cart</a>
                 </li>
+                <li class="nav-item" style="padding-left:5px; padding-right:5px;">
+                    <a class="nav-link" href="#">History</a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link menu" href="/userprofile">Welcome {{$name}}</a>
-                </li>
-                <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link menu" href="/logout">Sign Out</a>
-                    <!-- <a class="nav-link menu" href="/login">Login</a> -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Welcome {{$name}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/userprofile">Profile</a>
+                    <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout">Sign Out</a>
+                    </div>
                 </li>
             </ul>
         </div>

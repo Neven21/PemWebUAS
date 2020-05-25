@@ -63,5 +63,9 @@ Route::get('/deletecart/{cart}','UserController@destroycart');
 
 Route::post('/placeorder','UserController@placeorder');
 
+Route::get('/orderlist','AdminController@showorders');
+
+Route::get('/deleteorder/{order}','AdminController@destroyorder');
+
 
 

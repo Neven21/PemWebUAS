@@ -39,8 +39,8 @@ html {
     max-width: 400px;
     position: relative;
     padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.5);
     text-align: center;
 }
 
@@ -253,7 +253,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
             @endif
 
             <!-- Login Form -->
-            <form method="post" action="/login" style="margin-bootom: 5px;">
+            <form method="post" action="/register" style="margin-bootom: 5px;">
                 @csrf
                 <input type="text" id="login" class="fadeIn second" name="username" placeholder="Username" required>
                 <input type="email" id="login" class="fadeIn second" name="email" placeholder="Email" required>

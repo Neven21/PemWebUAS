@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Product;
+use App\Product_order;
 use Illuminate\Support\Facades\DB;
 use Session;
 
@@ -17,7 +18,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        if(Session::has('emaildata'))
+        if(Session::get('emaildata') == 'admin@admin.com')
         {
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
@@ -39,7 +40,7 @@ class AdminController extends Controller
      */
     public function createindex()
     {
-        if(Session::has('emaildata'))
+        if(Session::get('emaildata') == 'admin@admin.com')
         {
             return view('Products.addproduct');
         }
@@ -83,7 +84,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        if(Session::has('emaildata'))
+        if(Session::get('emaildata') == 'admin@admin.com')
         {
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
@@ -101,7 +102,7 @@ class AdminController extends Controller
 
     public function editindex($id)
     {
-        if(Session::has('emaildata'))
+        if(Session::get('emaildata') == 'admin@admin.com')
         {
             $products = Product::Find($id);
             return view('Products.editproduct',['products'=>$products]);
@@ -132,7 +133,7 @@ class AdminController extends Controller
      */
     public function update(Request $request)
     {
-        if(Session::has('emaildata'))
+        if(Session::get('emaildata') == 'admin@admin.com')
         {
             $product = Product::where('id',$request->id)->first();
             
@@ -152,6 +153,43 @@ class AdminController extends Controller
             return 'UNAUTHORIZED ACCESS';
         }
     }
+
+    public function showorders()
+    {
+        if(Session::get('emaildata') == 'admin@admin.com')
+        {
+            $checkorder = Product_order::all();
+            if($checkorder->isEmpty())
+            {
+                return 'no orders yet';
+            }
+            else
+            {
+                $orders = Product_order::all();
+                $totalincome = 0;
+                foreach($orders as $ors)
+                {
+                    $totalincome = $totalincome + $ors->total_price;
+                }
+                return view ('Admin.orderlist',['product_orders'=>$orders])->withTotal($totalincome);
+             }
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    
+    public function destroyorder($id)
+    {
+        $order = Product_order::where('order_id',$id)->first();
+
+        $order->forceDelete();
+
+        return redirect('/orderlist');
+    }
+
 
     /**
      * Remove the specified resource from storage.

@@ -25,7 +25,7 @@ class UserController extends Controller
             $user = User::where('email',$emaildata)->first();
             // dump($user);
             $products = Product::all();
-            $name = $user['firstname']. ' ' . $user['lastname'];
+            $name = $user['firstname'];
             return view('User.index',['products'=>$products])->withName($name);
         }
         else
@@ -42,7 +42,7 @@ class UserController extends Controller
             $user = User::where('email',$emaildata)->first();
             // dump($user);
             $products = Product::all();
-            $name = $user['firstname']. ' ' . $user['lastname'];
+            $name = $user['firstname'];
             return view('User.productlist',['products'=>$products])->withName($name);
         }
         else
@@ -59,7 +59,7 @@ class UserController extends Controller
             $user = User::where('email',$emaildata)->first();
             // dump($user);
             $products = Product::Find($id);
-            $name = $user['firstname']. ' ' . $user['lastname'];
+            $name = $user['firstname'];
             return view('Products.user',['products'=>$products])->withName($name);
         }
         else
@@ -72,16 +72,25 @@ class UserController extends Controller
     {
         if(Session::has('emaildata'))
         {
-            $carts = Cart::all();
-            $total = 0;
-
-            foreach($carts as $crt)
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $checkcart = Cart::where('username',$user->username)->get();
+            if($checkcart->isEmpty())
             {
-                $total = $total + ($crt->qty * $crt->price);
+                return 'cart is empty';
             }
-            
-            return view('User.carttemp',['carts'=>$carts])->withTotal($total);
+            else
+            {
+                $carts = Cart::where('username',$user->username)->get();
+                $total = 0;
 
+                foreach($carts as $crt)
+                {
+                    $total = $total + ($crt->qty * $crt->price);
+                }
+                
+                return view('User.carttemp',['carts'=>$carts])->withTotal($total);
+            }
         }
         else
         {
@@ -93,23 +102,30 @@ class UserController extends Controller
     {
         if(Session::has('emaildata'))
         {
-            $emaildata = Session::get('emaildata');
-            $user = User::where('email',$emaildata)->first();
-            // dump($user);
-            $products = Product::Find($request->id);
+                $emaildata = Session::get('emaildata');
+                $user = User::where('email',$emaildata)->first();
+                // dump($user);
+                $products = Product::Find($request->id);
+                $cart = new Cart;
 
-            $cart = new Cart;
+                if($products->Stock < $request->jumlah)
+                {
+                    return redirect('/productlist')->with('error', 'Stock tidak cukup');
+                    // return 'lebih dari stok tersedia';
+                }
+                else
+                {
+                    $totalharga = $products['Harga'] * $request->jumlah;
+                
+                    $cart->username = $user['username'];
+                    $cart->product_name = $products->ProductName;
+                    $cart->qty = $request->jumlah;
+                    $cart->price = $products->Harga;
 
-            $totalharga = $products['Harga'] * $request->jumlah;
-        
-            $cart->username = $user['username'];
-            $cart->product_name = $products->ProductName;
-            $cart->qty = $request->jumlah;
-            $cart->price = $products->Harga;
+                    $cart->save();
 
-            $cart->save();
-
-            return redirect('/productlist');
+                    return redirect('/productlist');
+                }
         }
         else
         {
@@ -124,7 +140,7 @@ class UserController extends Controller
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
             // dump($user);
-            $products = Product::Find($request->id);
+            // $products = Product::Find($request->id);
 
             $order = new Product_order;
 
@@ -134,6 +150,19 @@ class UserController extends Controller
             $order->total_price = $total;
 
             $order->save();
+
+            $carts = Cart::all();
+            foreach($carts as $crt)
+            {
+                $products = Product::where('ProductName',$crt->product_name)->first();
+                $updatestock = $products->Stock - $crt->qty;
+                $products->Stock = $updatestock;
+                $products->save();
+            }
+
+            // $updatestock = $products->Stock - $request->jumlah;
+            // $products->Stock = $updatestock;
+            // $products->save();
 
             $cart = Cart::where('username',$user['username'])->delete();
 
@@ -151,7 +180,7 @@ class UserController extends Controller
 
         $cart->forceDelete();
 
-        return redirect('/productlist');
+        return redirect('/shoppingcart');
     }
 
     /**
