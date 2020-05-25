@@ -24,7 +24,7 @@ class UserProfileController extends Controller
             // $email = $user['email'];
             // $name = $user['firstname']. ' ' . $user['lastname'];
             // $dob = $user['dob'];
-            $name = $user['firstname']. ' ' . $user['lastname'];
+            $name = $user['firstname'];
             return view('User.profile')->withUserdata($user)->withName($name);
         }
         else
@@ -40,6 +40,26 @@ class UserProfileController extends Controller
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
             return view('User.editprofile')->withUserdata($user);
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    public function redirectUser(){
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            if($user['role'] == 'admin')
+            {
+                return redirect('/adminhome')->withUserdata($user);
+            }
+            else
+            {
+                return redirect('/userhome')->withUserdata($user);
+            }
         }
         else
         {
@@ -63,7 +83,13 @@ class UserProfileController extends Controller
 
             Session::put('emaildata',$request->email);
 
-            // $user->picture = '/';
+            if($request->hasfile('gambar')){
+                $file = $request->file('gambar');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/users', $filename);
+                $user->picture = $filename;
+            }
 
             $user->save();
 
@@ -73,7 +99,7 @@ class UserProfileController extends Controller
             }
             else
             {
-                return redirect('/userhome');
+                return redirect('/userprofile');
             }
         }
         else

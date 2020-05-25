@@ -353,7 +353,7 @@
           
             
               <!-- Register Form -->
-              <form method="post" action="/addproduct">
+              <form method="post" enctype="multipart/form-data" action="/addproduct">
                 @csrf
                 <select name="kategori">
                     <option disabled selected value> -- select an option -- </option>
@@ -364,6 +364,7 @@
                 <input type="number" id="lastname" class="fadeIn third" name="stock" placeholder="Stock" required>
                 <input type="text" id="lastname" class="fadeIn third" name="description" placeholder="Description" required>
                 <input type="number" id="lastname" class="fadeIn third" name="harga" placeholder="Price" required>
+                <input type="file" id ="Image" accept="image/*" class="fadeIn third" name="gambar" placeholder="Image" required>
                 <input type="submit" class="fadeIn fourth" value="Add Product">
               </form>
           

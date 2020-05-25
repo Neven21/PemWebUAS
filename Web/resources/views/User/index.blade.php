@@ -61,10 +61,10 @@ html {
                     <a class="nav-link" href="/productlist">Menu</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="/cart">Cart</a>
+                    <a class="nav-link" href="/shoppingcart">Cart</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="#">History</a>
+                    <a class="nav-link" href="/orderhistory">History</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

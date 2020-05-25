@@ -253,7 +253,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
             @endif
 
             <!-- Login Form -->
-            <form method="post" action="/register" style="margin-bootom: 5px;">
+            <form method="post" enctype="multipart/form-data" action="/register" style="margin-bootom: 5px;">
                 @csrf
                 <input type="text" id="login" class="fadeIn second" name="username" placeholder="Username" required>
                 <input type="email" id="login" class="fadeIn second" name="email" placeholder="Email" required>
@@ -261,12 +261,13 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                 <input type="text" id="firstname" class="fadeIn third" name="firstname" placeholder="First Name" required>
                 <input type="text" id="lastname" class="fadeIn third" name="lastname" placeholder="Last Name" required>
                 <input type="date" id="day" class="fadeIn third" name="dob" placeholder="Day" required>
+                <input type="file" id ="Image" accept="image/*" class="fadeIn third" name="gambar" placeholder="Image">
                 <input type="submit" class="fadeIn fourth" value="Register">
             </form>
         
             <div id="formFooter">
                 <div>
-                <a style="color:#000000;" href="/login">Already Have an Account? Login Now!</a>
+                    <a style="color:#000000;" href="/login">Already Have an Account? Login Now!</a>
                 </div>
                 <div>
                     <a style="color:#000000;" href="/">Go Back To Home</a>

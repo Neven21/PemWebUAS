@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/backtohome','UserProfileController@redirectUser');
+
 Route::get('/login', 'LoginController@index');
 
 Route::get('/logout', 'LoginController@logout');
@@ -66,6 +68,10 @@ Route::post('/placeorder','UserController@placeorder');
 Route::get('/orderlist','AdminController@showorders');
 
 Route::get('/deleteorder/{order}','AdminController@destroyorder');
+
+Route::get('/orderhistory','UserController@showorderhistory');
+
+Route::post('/giverating','UserController@giverating');
 
 
 

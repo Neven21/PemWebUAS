@@ -7,6 +7,8 @@ use App\User;
 use App\Product;
 use App\Cart;
 use App\Product_order;
+use App\User_order;
+use App\Rating;
 use Illuminate\Support\Facades\DB;
 use Session;
 
@@ -75,6 +77,7 @@ class UserController extends Controller
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
             $checkcart = Cart::where('username',$user->username)->get();
+            $name = $user['firstname'];
             if($checkcart->isEmpty())
             {
                 return 'cart is empty';
@@ -89,7 +92,7 @@ class UserController extends Controller
                     $total = $total + ($crt->qty * $crt->price);
                 }
                 
-                return view('User.carttemp',['carts'=>$carts])->withTotal($total);
+                return view('User.carttemp',['carts'=>$carts])->withTotal($total)->withName($name);
             }
         }
         else
@@ -143,11 +146,14 @@ class UserController extends Controller
             // $products = Product::Find($request->id);
 
             $order = new Product_order;
+            $userorder = new User_order;
+            $rating = new Rating();
 
             $total = $request->totalall;
 
             $order->username = $user['username'];
             $order->total_price = $total;
+            $userorder->username = $user['username'];
 
             $order->save();
 
@@ -158,6 +164,15 @@ class UserController extends Controller
                 $updatestock = $products->Stock - $crt->qty;
                 $products->Stock = $updatestock;
                 $products->save();
+
+                $userorder->product_name = $crt->product_name;
+                $userorder->qty = $crt->qty;
+                $userorder->save();
+
+                $rating->username = $user->username;
+                $rating->product_name = $crt->product_name;
+                $rating->rating = 0;
+                $rating->save();
             }
 
             // $updatestock = $products->Stock - $request->jumlah;
@@ -182,6 +197,60 @@ class UserController extends Controller
 
         return redirect('/shoppingcart');
     }
+
+    public function showorderhistory()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $checkorder = User_order::where('username',$user->username)->get();
+            if($checkorder->isEmpty())
+            {
+                return 'no order yet';
+            }
+            else
+            {
+                $ordershistory = User_order::where('username',$user->username)->get();   
+                return view('User.orderhistory',['users_orders'=>$ordershistory]);
+            }
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    public function giverating(Request $request)
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+
+            $rating = Rating::where('username',$user->username)
+                                ->where('product_name',$request->productname)
+                                ->first();
+
+            $rating->rating = $request->rating;
+
+            $rating->save();
+
+            $avgrating = Rating::where('product_name',$request->productname)
+                                    ->avg('rating');
+                     
+            $product = Product::where('ProductName',$request->productname)->first();
+            $product->avg_rating = $avgrating;
+            $product->save();
+
+            return redirect('/orderhistory');
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.

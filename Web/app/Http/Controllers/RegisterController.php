@@ -46,15 +46,21 @@ class RegisterController extends Controller
 
         ]);
 
-       $user = new User;
-       $user->username = $request->username;
-       $user->password = Hash::make($request->password);
-       $user->email = $request->email;
-       $user->firstname = $request->firstname;
-       $user->lastname = $request->lastname;
-       $user->dob = $request->dob;
-       $user->role = 'user';
-       $user->picture = '/';
+        $user = new User;
+        $user->username = $request->username;
+        $user->password = Hash::make($request->password);
+        $user->email = $request->email;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->dob = $request->dob;
+        $user->role = 'user';
+        if($request->hasfile('gambar')){
+            $file = $request->file('gambar');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/users', $filename);
+            $user->picture = $filename;
+        }
 
        $user->save();
 

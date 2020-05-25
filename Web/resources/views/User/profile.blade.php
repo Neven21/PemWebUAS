@@ -51,12 +51,13 @@ html {
     @endif
 </head>
 <body class="bg">
-<nav class="navbar navbar-expand-lg navbar-light" style="background:#4d443d; font-family: 'Nunito'; padding-left:5%; padding-right:5%; font-size:20px">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background:#4d443d; font-family: 'Nunito'; padding-left:5%; padding-right:5%; font-size:20px">
         <a class="navbar-brand" href="/userhome" style="margin-left:50px; margin-right:50px;"><img src="/assets/logo.png" style="width:50px; height:50px;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse menu" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link" href="/userhome">Home</a>
@@ -65,10 +66,10 @@ html {
                     <a class="nav-link" href="/productlist">Menu</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="/cart">Cart</a>
+                    <a class="nav-link" href="/shoppingcart">Cart</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="#">History</a>
+                    <a class="nav-link" href="/orderhistory">History</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -85,13 +86,15 @@ html {
             </ul>
         </div>
     </nav>
+    <!-- Navbar -->
 
     <div class="full-height mx-auto" style="width:50%;">
         <div class="row text-center" style="padding-top:50px;">
             <div class="col-md-4">
                 <div>
-                    <img class="pp" src="" alt="...">
+                    <img  class="pp" src="{{ asset('uploads/users/'. $userdata['picture']) }}" alt="...">
                     <h1 class="text-center" style="color:#f1eedb; font-size:64px;"><b>{{$userdata['username']}}</b></h1>
+                    <a href="/editprofile" type="button">Edit</a>
                 </div>
             </div>
             <div class="col-md-8">

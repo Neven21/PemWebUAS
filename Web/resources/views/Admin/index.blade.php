@@ -357,13 +357,14 @@
             </div><div class="card-deck">
         @endif
             <div class="card">
-                <img  class="card-img-top" alt="...">
+                <img  class="card-img-top" src="{{ asset('uploads/products/'. $prd->Image) }}" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$prd->ProductName}}</h5>
                     <p class="card-text">{{$prd->Description}}</p>
                     <p class="card-text">Kategori   : {{$prd->Category}}</p>
                     <p class="card-text">Stock      : {{$prd->Stock}}</p>
                     <p class="card-text">Harga      : Rp {{$prd->Harga}},-</p><br>
+                    <p class="card-text">Rating      : {{$prd->avg_rating}}</p><br>
                     <a href="/products/{{ $prd->id }}" class="btn btn-primary">Detail</a>
                     <a href="/deleteproduct/{{ $prd->id }}" class="btn btn-danger">Delete</a>
                 </div>

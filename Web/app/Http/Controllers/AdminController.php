@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Product;
 use App\Product_order;
+use App\User_order;
 use Illuminate\Support\Facades\DB;
 use Session;
 
@@ -69,7 +70,14 @@ class AdminController extends Controller
         $product->Stock = $request->stock;
         $product->Description = $request->description;
         $product->Harga = $request->harga;
-        $product->Image = '/';
+        $product->avg_rating = 0;
+        if($request->hasfile('gambar')){
+            $file = $request->file('gambar');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/products', $filename);
+            $product->Image = $filename;
+        }
 
         $product->save();
 
@@ -142,8 +150,14 @@ class AdminController extends Controller
             $product->Description = $request->desc;
             $product->Stock = $request->stock;
             $product->Harga = $request->harga;
-            // $product->Image = '/';
-
+            if($request->hasfile('gambar')){
+                $file = $request->file('gambar');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/products', $filename);
+                $product->Image = $filename;
+            }
+            
             $product->save();
 
             return redirect('/adminhome');
@@ -184,7 +198,6 @@ class AdminController extends Controller
     public function destroyorder($id)
     {
         $order = Product_order::where('order_id',$id)->first();
-
         $order->forceDelete();
 
         return redirect('/orderlist');

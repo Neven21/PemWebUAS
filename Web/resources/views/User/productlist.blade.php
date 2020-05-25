@@ -17,6 +17,98 @@ html {
 .position-ref {
     position: relative;
 }
+
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fadeIn {
+    opacity:0;
+    -webkit-animation:fadeIn ease-in 1;
+    -moz-animation:fadeIn ease-in 1;
+    animation:fadeIn ease-in 1;
+    -webkit-animation-fill-mode:forwards;
+    -moz-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+    -webkit-animation-duration:0.5s;
+    -moz-animation-duration:0.5s;
+    animation-duration:0.5s;
+}
+
+.fadeIn.first {
+    -webkit-animation-delay: 0.1s;
+    -moz-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+}
+
+.fadeIn.second {
+    -webkit-animation-delay: 0.2s;
+    -moz-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+
+.fadeIn.third {
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+}
+
+.fadeIn.fourth {
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+}
+
+.imgContainer {
+    position: relative;
+    width: 100%;
+}
+
+.productImg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.imgContainer:hover .overlay {
+    opacity: 1;
+}
+
+.text-overlay {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.text-overlay:hover {
+    cursor: pointer;
+}
+
+h1:hover {
+    font-size: 250%;
+    font-weight: bold;
+}
 </style>
 
 <!doctype html>
@@ -46,12 +138,13 @@ html {
     @endif
 </head>
 <body class="bg">
-<nav class="navbar navbar-expand-lg navbar-light" style="background:#4d443d; font-family: 'Nunito'; padding-left:5%; padding-right:5%; font-size:20px">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background:#4d443d; font-family: 'Nunito'; padding-left:5%; padding-right:5%; font-size:20px">
         <a class="navbar-brand" href="/userhome" style="margin-left:50px; margin-right:50px;"><img src="/assets/logo.png" style="width:50px; height:50px;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse menu" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link" href="/userhome">Home</a>
@@ -60,10 +153,10 @@ html {
                     <a class="nav-link" style="color: #a98e68;" href="/userhome">Menu</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="/cart">Cart</a>
+                    <a class="nav-link" href="/shoppingcart">Cart</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="#">History</a>
+                    <a class="nav-link" href="/orderhistory">History</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -80,23 +173,53 @@ html {
             </ul>
         </div>
     </nav>
-    <a href="/shoppingcart" class="btn btn-primary">View Cart</a>
+    <!-- Navbar -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
     @if ($message = Session::get('error'))
         <div class="alert alert-danger alert-block">
             <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>{{ $message }}</strong>
         </div>
      @endif
-    <div class="full-height mx-auto" style="width:80%;">
+
+    <div class="full-height mx-auto" style="width:90%;">
         <div style="padding-top:50px;">
             <div class="row text-center">  
                 @foreach ($products as $prd)
-                <div class="col-sm-4" style="padding:15px;">
-                    <div class="card">
-                        <img  class="card-img-top" alt="...">
-                        <div class="card-body">
+                <div class="col-sm-4 fadeIn first" style="padding:3%;">
+                    <div class="card fadeIn second">
+                        <div class="imgContainer">
+                            <img class="productImg" src="{{ asset('uploads/products/'. $prd->Image) }}" alt="...">
+                            <div class="overlay">
+                                <div class="text-overlay">
+                                    <h1 type="button" data-toggle="modal" data-target="#exampleModal">Detail</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body fadeIn fourth">
                             <h5 class="card-title"><b>{{$prd->ProductName}}</b></h5>
-                            <p class="card-text">Price : Rp.{{$prd->Harga}}</p><br>
+                            <p class="card-text">Price : Rp.{{$prd->Harga}},-</p><br>
                             <a href="/productdetail/{{ $prd->id }}" class="btn btn-primary">Detail</a>
                         </div>
                     </div>
