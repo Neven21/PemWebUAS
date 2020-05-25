@@ -101,12 +101,13 @@ class UserController extends Controller
         {
             $carts = Cart::all();
             $total = 0;
+
             foreach($carts as $crt)
             {
-                $total = $total + ($crt->qty * $crt->price); //MSH error, harganya 2x lipet
+                $total = $total + ($crt->qty * $crt->price);
             }
+            
             return view('User.carttemp',['carts'=>$carts])->withTotal($total);
-
 
         }
         else
