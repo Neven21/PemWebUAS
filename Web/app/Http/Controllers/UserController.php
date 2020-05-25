@@ -100,16 +100,23 @@ class UserController extends Controller
 
             $cart = new Cart;
 
-            $totalharga = $products['Harga'] * $request->jumlah;
-        
-            $cart->username = $user['username'];
-            $cart->product_name = $products->ProductName;
-            $cart->qty = $request->jumlah;
-            $cart->price = $products->Harga;
+            if($products->Stock < $request->jumlah)
+            {
+                return 'lebih dari stok tersedia';
+            }
+            else
+            {
+                $totalharga = $products['Harga'] * $request->jumlah;
+            
+                $cart->username = $user['username'];
+                $cart->product_name = $products->ProductName;
+                $cart->qty = $request->jumlah;
+                $cart->price = $products->Harga;
 
-            $cart->save();
+                $cart->save();
 
-            return redirect('/productlist');
+                return redirect('/productlist');
+            }
         }
         else
         {
@@ -124,7 +131,7 @@ class UserController extends Controller
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
             // dump($user);
-            $products = Product::Find($request->id);
+            // $products = Product::Find($request->id);
 
             $order = new Product_order;
 
@@ -134,6 +141,19 @@ class UserController extends Controller
             $order->total_price = $total;
 
             $order->save();
+
+            $carts = Cart::all();
+            foreach($carts as $crt)
+            {
+                $products = Product::where('ProductName',$crt->product_name)->first();
+                $updatestock = $products->Stock - $crt->qty;
+                $products->Stock = $updatestock;
+                $products->save();
+            }
+
+            // $updatestock = $products->Stock - $request->jumlah;
+            // $products->Stock = $updatestock;
+            // $products->save();
 
             $cart = Cart::where('username',$user['username'])->delete();
 
