@@ -509,7 +509,7 @@
 
 {{-- <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/adminhome">Authentic Restaurant</a>
+        <a class="navbar-brand" href="/backtohome">Authentic Restaurant</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -521,7 +521,6 @@
             </div><div class="card-deck">
         @endif
             <div class="card">
-                <img  class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$prd->ProductName}}</h5>
                     <p class="card-text">Kategori   : {{$prd->Category}}</p>

@@ -353,7 +353,7 @@
           
             
               <!-- Register Form -->
-              <form method="post" action="/editprofile">
+              <form method="post" enctype="multipart/form-data" action="/editprofile">
                 @csrf
                 <input type="text" id="login" class="fadeIn second" name="username" placeholder="Username" value=" {{$userdata['username']}}" required disabled>
                 <input type="email" id="login" class="fadeIn second" name="email" placeholder="Email" value=" {{$userdata['email']}}" required>
@@ -361,6 +361,7 @@
                 <input type="text" id="firstname" class="fadeIn third" name="firstname" placeholder="First Name" value=" {{$userdata['firstname']}}"required>
                 <input type="text" id="lastname" class="fadeIn third" name="lastname" placeholder="Last Name" value=" {{$userdata['lastname']}}" required>
                 <input type="date" id="day" class="fadeIn third" name="dob" placeholder="Day" value=" {{$userdata['dob']}}" required>
+                <input type="file" id ="Image" accept="image/*" class="fadeIn third" name="gambar" placeholder="Image" required>
                 <input type="submit" class="fadeIn fourth" value="Update">
               </form>
           

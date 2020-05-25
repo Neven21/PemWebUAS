@@ -70,7 +70,14 @@ class AdminController extends Controller
         $product->Stock = $request->stock;
         $product->Description = $request->description;
         $product->Harga = $request->harga;
-        $product->Image = '/';
+        $product->avg_rating = 0;
+        if($request->hasfile('gambar')){
+            $file = $request->file('gambar');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/products', $filename);
+            $product->Image = $filename;
+        }
 
         $product->save();
 
@@ -143,8 +150,14 @@ class AdminController extends Controller
             $product->Description = $request->desc;
             $product->Stock = $request->stock;
             $product->Harga = $request->harga;
-            // $product->Image = '/';
-
+            if($request->hasfile('gambar')){
+                $file = $request->file('gambar');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/products', $filename);
+                $product->Image = $filename;
+            }
+            
             $product->save();
 
             return redirect('/adminhome');

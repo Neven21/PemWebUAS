@@ -444,7 +444,7 @@
             </div><div class="card-deck">
         @endif
             <div class="card">
-                <img  class="card-img-top" alt="...">
+                <img  class="card-img-top" src="{{ asset('uploads/products/'. $prd->Image) }}" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{$prd->ProductName}}</h5>
                     <p class="card-text">Kategori   : {{$prd->Category}}</p> <br>

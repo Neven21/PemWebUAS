@@ -54,7 +54,13 @@ class RegisterController extends Controller
        $user->lastname = $request->lastname;
        $user->dob = $request->dob;
        $user->role = 'user';
-       $user->picture = '/';
+       if($request->hasfile('gambar')){
+        $file = $request->file('gambar');
+        $extension = $file->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $file->move('uploads/users', $filename);
+        $user->picture = $filename;
+    }
 
        $user->save();
 

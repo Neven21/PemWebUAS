@@ -343,12 +343,13 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/adminhome">Authentic Restaurant</a>
+        <a class="navbar-brand" href="/backtohome">Authentic Restaurant</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
          <ul class="nav navbar-nav ml-auto"> Your Profile </ul>      
       </nav>
+      <img  class="card-img-top" src="{{ asset('uploads/users/'. $userdata['picture']) }}" alt="...">
       {{$userdata['username']}}<br>
       {{$userdata['email']}}<br>
       {{$userdata['firstname'] . $userdata['lastname']}}<br>

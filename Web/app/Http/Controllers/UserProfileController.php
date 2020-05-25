@@ -46,6 +46,26 @@ class UserProfileController extends Controller
         }
     }
 
+    public function redirectUser(){
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            if($user['role'] == 'admin')
+            {
+                return redirect('/adminhome')->withUserdata($user);
+            }
+            else
+            {
+                return redirect('/userhome')->withUserdata($user);
+            }
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
     public function edit(Request $request)
     {
     
@@ -62,7 +82,13 @@ class UserProfileController extends Controller
 
             Session::put('emaildata',$request->email);
 
-            // $user->picture = '/';
+            if($request->hasfile('gambar')){
+                $file = $request->file('gambar');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/users', $filename);
+                $user->picture = $filename;
+            }
 
             $user->save();
 

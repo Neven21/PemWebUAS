@@ -353,7 +353,7 @@
           
             
               <!-- Register Form -->
-              <form method="post" action="/editproduct">
+              <form method="post" enctype="multipart/form-data" action="/editproduct">
                 @csrf
                 <input type="text" id="login" class="fadeIn second" name="name" placeholder="Username" value="{{$products->ProductName}}" required>
                 <input type="text" id="login" class="fadeIn second" name="category" placeholder="Email" value="{{$products->Category}}" required>
@@ -361,6 +361,7 @@
                 <input type="number" id="lastname" class="fadeIn third" name="stock" placeholder="Last Name" value="{{$products->Stock}}" required>
                 <input type="number" id="lastname" class="fadeIn third" name="harga" placeholder="Price" value="{{$products->Harga}}" required>
                 <input type="hidden" id="lastname" class="fadeIn third" name="id" placeholder="Last Name" value="{{$products->id}}" required>
+                <input type="file" id ="Image" accept="image/*" class="fadeIn third" name="gambar" placeholder="Image" required>
                 <input type="submit" class="fadeIn fourth" value="Update">
               </form>
           
