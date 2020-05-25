@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Product;
+use App\Product_order;
 use Illuminate\Support\Facades\DB;
 use Session;
 
@@ -152,6 +153,42 @@ class AdminController extends Controller
             return 'UNAUTHORIZED ACCESS';
         }
     }
+
+    public function showorders()
+    {
+        if(Session::has('emaildata'))
+        {
+            // $emaildata = Session::get('emaildata');
+            // $user = User::where('email',$emaildata)->first();
+            // // dump($user);
+            // $products = Product::all();
+            // $name = $user['firstname']. ' ' . $user['lastname'];
+            // return view('Admin.index',['products'=>$products])->withName($name);
+
+            $orders = Product_order::all();
+            $totalincome = 0;
+            foreach($orders as $ors)
+            {
+                 $totalincome = $totalincome + $ors->total_price;
+            }
+            return view ('Admin.orderlist',['product_orders'=>$orders])->withTotal($totalincome);
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    
+    public function destroyorder($id)
+    {
+        $order = Product_order::where('order_id',$id)->first();
+
+        $order->forceDelete();
+
+        return redirect('/orderlist');
+    }
+
 
     /**
      * Remove the specified resource from storage.

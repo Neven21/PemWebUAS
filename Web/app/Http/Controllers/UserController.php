@@ -180,7 +180,7 @@ class UserController extends Controller
 
         $cart->forceDelete();
 
-        return redirect('/productlist');
+        return redirect('/shoppingcart');
     }
 
     /**

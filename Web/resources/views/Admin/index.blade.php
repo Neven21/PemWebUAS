@@ -350,6 +350,7 @@
          <ul class="nav navbar-nav ml-auto"> <a href="/userprofile"> <span class="fa fa-user-circle-o"> </span> Welcome {{$name}} </a> <a href="/logout"> Log Out </a> </ul>        
       </nav>
       <a href="/addproduct" class="btn btn-primary">Add Product</a>
+      <a href="/orderlist" class="btn btn-primary">View Orders</a>
       <div class="card-deck">
         @foreach ($products as $prd)
         @if(($loop->iteration%3)==1)
@@ -367,7 +368,6 @@
                     <a href="/deleteproduct/{{ $prd->id }}" class="btn btn-danger">Delete</a>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
                 </div>
             </div>
         @endforeach
