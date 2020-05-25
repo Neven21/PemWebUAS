@@ -81,7 +81,7 @@ class UserController extends Controller
             }
             else
             {
-                $carts = Cart::all();
+                $carts = Cart::where('username',$user->username)->get();
                 $total = 0;
 
                 foreach($carts as $crt)
