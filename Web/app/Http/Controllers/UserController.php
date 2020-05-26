@@ -124,6 +124,7 @@ class UserController extends Controller
                     $cart->product_name = $products->ProductName;
                     $cart->qty = $request->jumlah;
                     $cart->price = $products->Harga;
+                    $cart->Image = $products->Image;
 
                     $cart->save();
 
@@ -167,6 +168,7 @@ class UserController extends Controller
 
                 $userorder->product_name = $crt->product_name;
                 $userorder->qty = $crt->qty;
+                $userorder->created_at = date('Y-m-d');
                 $userorder->save();
 
                 $rating->username = $user->username;
