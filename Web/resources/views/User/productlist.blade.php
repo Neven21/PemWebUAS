@@ -206,7 +206,7 @@ h1:hover {
         {{-- TAMBAHAN NEVEN UNTUK SEARCH--}}
         <form method="GET" action="/usersearch">
             <div class="form-group"  style="width: 10%">
-                <input type="search" name="search" class="form-control">
+                <input type="search" name="search" class="form-control" placeholder="Search here..." required>
                 <span class="form-group-btn">
                     <button type="submit" class="btn btn-primary"> Search </button>
                 </span>
@@ -215,11 +215,30 @@ h1:hover {
         {{-- END OF TAMBAHAN NEVEN UNTUK SEARCH--}}
 
         {{-- TAMBAHAN NEVEN UNTUK SORT--}}
-        <a href="/sortascbyname"> Sort Name Asc </a>
-        <a href="/sortdescbyname"> Sort Name Desc </a>
-        <a href="/sortascbyprice"> Sort Price Asc </a>
-        <a href="/sortdescbyprice"> Sort Price Desc </a>
+        <a href="/sortascbyname"> Sort Name Asc - </a>
+        <a href="/sortdescbyname"> Sort Name Desc - </a>
+        <a href="/sortascbyprice"> Sort Price Asc - </a>
+        <a href="/sortdescbyprice"> Sort Price Desc </a> <br>
         {{-- END OF TAMBAHAN NEVEN UNTUK SORT--}}
+
+          {{-- TAMBAHAN NEVEN UNTUK FILTER--}}
+          <a href="/makananonly"> Makanan Aja - </a>
+          <a href="/minumanonly"> Minuman Aja </a>
+
+          <form method="GET" action="/filterprice">
+            <div class="form-group"  style="width: 10%">
+                <select name="type"> 
+                    <option value="above"> Above </option>
+                    <option value="below"> Below </option>
+                </select>
+                <input type="number" name="price" class="form-control" placeholder="Input price..." required>
+                <span class="form-group-btn">
+                    <button type="submit" class="btn btn-primary"> Filter Price</button>
+                </span>
+            </div>
+        </form>
+    
+          {{-- END OF TAMBAHAN NEVEN UNTUK FILTER--}}
 
     <div class="full-height mx-auto" style="width:90%;">
         <div style="padding-top:50px;">

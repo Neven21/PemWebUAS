@@ -85,5 +85,12 @@ Route::get('/sortascbyprice','DataFilterController@usersortascbyprice');
 
 Route::get('/sortdescbyprice','DataFilterController@usersortdescbyprice');
 
+Route::get('/makananonly','DataFilterController@makananonly');
+
+Route::get('/minumanonly','DataFilterController@minumanonly');
+
+Route::get('/filterprice','DataFilterController@filterprice');
+
+
 
 

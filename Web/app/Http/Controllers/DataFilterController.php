@@ -148,6 +148,71 @@ class DataFilterController extends Controller
             return 'UNAUTHORIZED ACCESS';
         }
     }
+
+    public function makananonly()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $name = $user['firstname'];
+
+            $sortedproducts = Product::where('Category','Makanan')->get();
+
+            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    public function minumanonly()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $name = $user['firstname'];
+
+            $sortedproducts = Product::where('Category','Minuman')->get();
+
+            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    public function filterprice(Request $request)
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $name = $user['firstname'];
+
+            $price = $request->get('price');
+            if($request->get('type') == 'above')
+            {
+                $filteredproducts = Product::where('Harga','>=',$price)->get();
+            }
+            else if($request->get('type') == 'below')
+            {
+                $filteredproducts = Product::where('Harga','<=',$price)->get();
+            }
+
+            return view('User.productlist',['products'=>$filteredproducts])->withName($name);
+            
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *
