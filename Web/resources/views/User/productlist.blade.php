@@ -203,6 +203,17 @@ h1:hover {
         </div>
      @endif
 
+        {{-- TAMBAHAN NEVEN --}}
+        <form method="GET" action="/usersearch">
+            <div class="form-group"  style="width: 10%">
+                <input type="search" name="search" class="form-control">
+                <span class="form-group-btn">
+                    <button type="submit" class="btn btn-primary"> Search </button>
+                </span>
+            </div>
+        </form>
+        {{-- END OF TAMBAHAN NEVEN --}}
+
     <div class="full-height mx-auto" style="width:90%;">
         <div style="padding-top:50px;">
             <div class="row text-center">  

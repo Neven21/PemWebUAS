@@ -351,6 +351,18 @@
       </nav>
       <a href="/addproduct" class="btn btn-primary">Add Product</a>
       <a href="/orderlist" class="btn btn-primary">View Orders</a>
+
+       {{-- TAMBAHAN NEVEN --}}
+       <form method="GET" action="/adminsearch">
+        <div class="form-group"  style="width: 10%">
+            <input type="search" name="search" class="form-control">
+            <span class="form-group-btn">
+                <button type="submit" class="btn btn-primary"> Search </button>
+            </span>
+        </div>
+    </form>
+    {{-- END OF TAMBAHAN NEVEN --}}
+    
       <div class="card-deck">
         @foreach ($products as $prd)
         @if(($loop->iteration%3)==1)

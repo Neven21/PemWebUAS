@@ -9,7 +9,7 @@
 <form method="POST" action="/giverating">
     @csrf
     <label> Rate this: </label>
-    <input type="number" min="0" max="5" name="rating" placeholder="0 - 5" value=""/>
+    <input type="number" min="0" max="5" name="rating" placeholder="0 - 5" value="" required/>
     <input type="hidden" name="productname" value="{{$ors->product_name}}">
     <input type="submit" value="Rate">
 </form>

@@ -73,5 +73,9 @@ Route::get('/orderhistory','UserController@showorderhistory');
 
 Route::post('/giverating','UserController@giverating');
 
+Route::get('/usersearch','DataFilterController@usersearch');
+
+Route::get('/adminsearch','DataFilterController@adminsearch');
+
 
 
