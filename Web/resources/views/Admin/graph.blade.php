@@ -364,27 +364,49 @@
     </form>
     {{-- END OF TAMBAHAN NEVEN UNTUK SEARCH--}}
 
-      <div class="card-deck">
-        @foreach ($products as $prd)
-        @if(($loop->iteration%3)==1)
-            </div><div class="card-deck">
-        @endif
-            <div class="card">
-                <img  class="card-img-top" src="{{ asset('uploads/products/'. $prd->Image) }}" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{$prd->ProductName}}</h5>
-                    <p class="card-text">{{$prd->Description}}</p>
-                    <p class="card-text">Kategori   : {{$prd->Category}}</p>
-                    <p class="card-text">Stock      : {{$prd->Stock}}</p>
-                    <p class="card-text">Harga      : Rp {{$prd->Harga}},-</p><br>
-                    <p class="card-text">Rating      : {{$prd->avg_rating}}</p><br>
-                    <a href="/products/{{ $prd->id }}" class="btn btn-primary">Detail</a>
-                    <a href="/deleteproduct/{{ $prd->id }}" class="btn btn-danger">Delete</a>
-                </div>
-                <div class="card-footer">
-                </div>
-            </div>
-        @endforeach
-    </div>
+    <div id="container"></div>
     @include('Template.footer');
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script>
+        Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Total Penjualan'
+        },
+        subtitle: {
+            text: 'Authentic Restaurant'
+        },
+        xAxis: {
+            categories: {!!json_encode($categories)!!},
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Quantity (pcs)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} pcs</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Penjualan',
+            data: {!!json_encode($qty,JSON_NUMERIC_CHECK)!!}
+
+        }]
+    });
+</script>
 </body>

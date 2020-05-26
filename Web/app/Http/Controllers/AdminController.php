@@ -193,6 +193,34 @@ class AdminController extends Controller
             return 'UNAUTHORIZED ACCESS';
         }
     }
+    
+    public function showgraph()
+    {
+        if(Session::get('emaildata') == 'admin@admin.com')
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $name = $user['firstname']. ' ' . $user['lastname'];
+            $userorder = User_order::select('product_name')->groupBy('product_name')->get();
+            $quantity = User_order::selectRaw('sum(qty) as qty')->groupBy('product_name')->get();
+            $categories = [];
+
+            foreach($userorder as $usrorder){
+                $categories[] = $usrorder->product_name;
+            }
+            foreach($quantity as $qtys){
+                $qty[] = $qtys->qty;
+            }
+            return view ('Admin.graph',['categories'=>$categories],['qty'=>$qty])->withName($name);;
+             
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+
 
     
     public function destroyorder($id)

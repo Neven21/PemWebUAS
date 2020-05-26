@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/graphlist', 'AdminController@showgraph');
+
 Route::get('/backtohome','UserProfileController@redirectUser');
 
 Route::get('/login', 'LoginController@index');
