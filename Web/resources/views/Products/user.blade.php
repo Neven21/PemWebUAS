@@ -253,7 +253,7 @@ h1:hover {
                             <form class="text-center" method="post" action="/addtocart">
                                 @csrf
                                 <p class="card-text">Total: <input type="number" placeholder="Amount" name="jumlah" min="1" value="1"/></p>
-                                <input type="hidden" name="id" value="{{ $products->id }}"/> <br>
+                                <input type="hidden" name="id" value="{{$products->id}}"/> <br>
                                 <input type="submit" class="fadeIn fourth" value="Add to Cart">
                             </form>
                         </div>

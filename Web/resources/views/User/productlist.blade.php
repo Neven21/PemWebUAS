@@ -109,6 +109,152 @@ h1:hover {
     font-size: 250%;
     font-weight: bold;
 }
+
+/* FORM TYPOGRAPHY*/
+
+input[type=button], input[type=submit], input[type=reset]  {
+    background-color: #4d443d;
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    -webkit-box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    margin: 20px 20px 20px 20px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+    background-color: #a98e68;
+}
+
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+    -moz-transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+input[type=text], input[type=email], input[type=password], input[type=date] {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #a98e68;
+}
+
+input[type=text]:placeholder, input[type=email]:placeholder, input[type=password]:placeholder, input[type=date]:placeholder {
+    color: #cccccc;
+}
+
+/* ANIMATIONS */
+
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fadeIn {
+    opacity:0;
+    -webkit-animation:fadeIn ease-in 1;
+    -moz-animation:fadeIn ease-in 1;
+    animation:fadeIn ease-in 1;
+    -webkit-animation-fill-mode:forwards;
+    -moz-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+    -webkit-animation-duration:1s;
+    -moz-animation-duration:1s;
+    animation-duration:1s;
+}
+
+.fadeIn.first {
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+
+.fadeIn.second {
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+}
+
+.fadeIn.third {
+    -webkit-animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+}
+
+.fadeIn.fourth {
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+}
 </style>
 
 <!doctype html>
@@ -150,7 +296,7 @@ h1:hover {
                     <a class="nav-link" href="/userhome">Home</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px; border-bottom: 2px solid #a98e68;">
-                    <a class="nav-link" style="color: #a98e68;" href="/userhome">Menu</a>
+                    <a class="nav-link" style="color: #a98e68;" href="/productlist">Menu</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link" href="/shoppingcart">Cart</a>
@@ -176,20 +322,27 @@ h1:hover {
     <!-- Navbar -->
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <img class="productImg" id="productImg" src="" alt="...">
             </div>
             <div class="modal-body">
-                ...
+                <h1 id="productName"></h1>
+                <h2 id="rating"></h2>
+                <h3 id="category"></h3>
+                <h4 id="desc"></h4>
+                <h4 id="stock"></h4>
+                <h4 id="price"></h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <form class="text-center m-auto" method="post" action="/addtocart">
+                    @csrf
+                    <p style="padding:0;">Total: <input type="number" placeholder="Amount" name="jumlah" min="1" value="1"/></p>
+                    <input id="id" type="hidden" name="id" value=""/>
+                    <input type="submit" class="fadeIn fourth" value="Add to Cart">
+                </form>
             </div>
             </div>
         </div>
@@ -250,14 +403,15 @@ h1:hover {
                             <img class="productImg" src="{{ asset('uploads/products/'. $prd->Image) }}" alt="...">
                             <div class="overlay">
                                 <div class="text-overlay">
-                                    <h1 type="button" data-toggle="modal" data-target="#exampleModal">Detail</h1>
+                                    <h1 type="button" data-id="{{$prd->id}}" data-img="{{ asset('uploads/products/'. $prd->Image) }}" data-name="{{$prd->ProductName}}" data-desc="{{$prd->Description}}" data-price="Rp. {{$prd->Harga}},-" data-category="{{$prd->Category}}" data-stock="{{$prd->Stock}}" data-rating="{{$prd->avg_rating}}" data-toggle="modal" class="openModal" href="#detailModal">Detail</h1>
+                                    <!-- <h1 type="button" data-id="{{$prd->id}}" data-toggle="modal" data-target="#detailModal" href="#detailModal">Detail</h1> -->
                                 </div>
                             </div>
                         </div>
                         <div class="card-body fadeIn fourth">
                             <h5 class="card-title"><b>{{$prd->ProductName}}</b></h5>
                             <p class="card-text">Price : Rp.{{$prd->Harga}},-</p><br>
-                            <a href="/productdetail/{{ $prd->id }}" class="btn btn-primary">Detail</a>
+                            <!-- <a href="/productdetail/{{$prd->id}}" class="btn btn-primary">Detail</a> -->
                         </div>
                     </div>
                 </div>
@@ -271,5 +425,28 @@ h1:hover {
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        // $('#exampleModal').data('mydata', {{$prd->id}}).dialog('open');
+        $(document).on("click", ".openModal", function () {
+            var productId = $(this).data('id');
+            var img = $(this).data('img');
+            var productName = $(this).data('name');
+            var desc = $(this).data('desc');
+            var price = $(this).data('price');
+            var category = $(this).data('category');
+            var stock = $(this).data('stock');
+            var rating = $(this).data('rating');
+            console.log(productId);
+            document.getElementById("productImg").src = img;
+            document.getElementById("productName").innerHTML = "<b>"+productName+"</b>";
+            document.getElementById("rating").innerHTML = "Rating : "+rating;
+            document.getElementById("category").innerHTML = "Categoty : "+category;
+            document.getElementById("desc").innerHTML = "Description : "+desc;
+            document.getElementById("stock").innerHTML = "Stock : "+stock;
+            document.getElementById("price").innerHTML = "Price : "+price;
+            $("#id").val(productId);
+            $('#detailModal').modal('show');
+        });
+    </script>
 </body>
 </html>

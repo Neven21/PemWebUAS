@@ -165,7 +165,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                     <a class="nav-link" href="/userhome">Home</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="/userhome">Menu</a>
+                    <a class="nav-link" href="/productlist">Menu</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px; border-bottom: 2px solid #a98e68;">
                     <a class="nav-link" style="color: #a98e68;" href="/shoppingcart">Cart</a>
@@ -210,8 +210,8 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
             <div class="col-sm-5 fadeIn fourth m-auto" id="formFooter">
                 <form method="POST" action="/placeorder">
                     @csrf
-                    <h5 class="card-text">Total all = Rp.{{$total}},-</h5>
-                    <!-- <h5 class="card-text">Total all = <input class="text-center" type="number" name="totalall" value="{{$total}}" readonly></h5> -->
+                    <!-- <h5 class="card-text">Total all = Rp.{{$total}},-</h5> -->
+                    <h5 class="card-text">Total all = <input class="text-center" type="number" name="totalall" value="{{$total}}" readonly></h5>
                     <input type="submit" class="fadeIn fourth" value="Check Out">
                 </form>
             </div>
