@@ -211,8 +211,9 @@ class UserController extends Controller
             }
             else
             {
+                $currentrating = Rating::where('username',$user->username)->get();
                 $ordershistory = User_order::where('username',$user->username)->get();   
-                return view('User.orderhistory',['users_orders'=>$ordershistory]);
+                return view('User.orderhistory',['users_orders'=>$ordershistory],['ratings'=>$currentrating]);
             }
         }
         else

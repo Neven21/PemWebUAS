@@ -1,3 +1,9 @@
+<p> Your Previous Ratings </p>
+@foreach ($ratings as $rts)
+<p> You rated {{$rts->product_name}} for {{$rts->rating}} stars </p>
+@endforeach 
+<br><br>
+
 @foreach ($users_orders as $ors)
 <p>You ordered {{$ors->qty}} packages of {{$ors->product_name}} 
 <form method="POST" action="/giverating">
