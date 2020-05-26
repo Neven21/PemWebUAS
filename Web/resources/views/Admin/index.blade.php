@@ -352,7 +352,7 @@
       <a href="/addproduct" class="btn btn-primary">Add Product</a>
       <a href="/orderlist" class="btn btn-primary">View Orders</a>
 
-       {{-- TAMBAHAN NEVEN --}}
+       {{-- TAMBAHAN NEVEN UNTUK SEARCH--}}
        <form method="GET" action="/adminsearch">
         <div class="form-group"  style="width: 10%">
             <input type="search" name="search" class="form-control">
@@ -361,8 +361,8 @@
             </span>
         </div>
     </form>
-    {{-- END OF TAMBAHAN NEVEN --}}
-    
+    {{-- END OF TAMBAHAN NEVEN UNTUK SEARCH--}}
+
       <div class="card-deck">
         @foreach ($products as $prd)
         @if(($loop->iteration%3)==1)

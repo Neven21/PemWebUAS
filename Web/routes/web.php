@@ -77,5 +77,13 @@ Route::get('/usersearch','DataFilterController@usersearch');
 
 Route::get('/adminsearch','DataFilterController@adminsearch');
 
+Route::get('/sortascbyname','DataFilterController@usersortascbyname');
+
+Route::get('/sortdescbyname','DataFilterController@usersortdescbyname');
+
+Route::get('/sortascbyprice','DataFilterController@usersortascbyprice');
+
+Route::get('/sortdescbyprice','DataFilterController@usersortdescbyprice');
+
 
 

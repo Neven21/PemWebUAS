@@ -71,7 +71,83 @@ class DataFilterController extends Controller
         }
     }
 
+    public function usersortascbyname()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $name = $user['firstname'];
 
+            $sortedproducts = Product::all()->sortBy('ProductName');
+
+            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    public function usersortdescbyname()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $name = $user['firstname'];
+
+            $sortedproducts = Product::all()->sortByDesc('ProductName');
+
+            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
+    public function usersortascbyprice()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $name = $user['firstname'];
+
+            $sortedproducts = Product::all()->sortBy('Harga');
+
+            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+     
+     
+        }
+    }
+
+    public function usersortdescbyprice()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $name = $user['firstname'];
+
+            $sortedproducts = Product::all()->sortByDesc('Harga');
+
+            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -203,7 +203,7 @@ h1:hover {
         </div>
      @endif
 
-        {{-- TAMBAHAN NEVEN --}}
+        {{-- TAMBAHAN NEVEN UNTUK SEARCH--}}
         <form method="GET" action="/usersearch">
             <div class="form-group"  style="width: 10%">
                 <input type="search" name="search" class="form-control">
@@ -212,7 +212,14 @@ h1:hover {
                 </span>
             </div>
         </form>
-        {{-- END OF TAMBAHAN NEVEN --}}
+        {{-- END OF TAMBAHAN NEVEN UNTUK SEARCH--}}
+
+        {{-- TAMBAHAN NEVEN UNTUK SORT--}}
+        <a href="/sortascbyname"> Sort Name Asc </a>
+        <a href="/sortdescbyname"> Sort Name Desc </a>
+        <a href="/sortascbyprice"> Sort Price Asc </a>
+        <a href="/sortdescbyprice"> Sort Price Desc </a>
+        {{-- END OF TAMBAHAN NEVEN UNTUK SORT--}}
 
     <div class="full-height mx-auto" style="width:90%;">
         <div style="padding-top:50px;">
