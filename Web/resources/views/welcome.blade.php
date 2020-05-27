@@ -53,11 +53,6 @@ html {
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse menu" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active" style="padding-left:5px; padding-right:5px;">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-            </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link menu" href="/login">Sign In</a>

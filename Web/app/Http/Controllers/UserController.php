@@ -80,7 +80,11 @@ class UserController extends Controller
             $name = $user['firstname'];
             if($checkcart->isEmpty())
             {
-                return 'cart is empty';
+                // return 'cart is empty';
+                $carts = Cart::where('username',$user->username)->get();
+                $total = 0;
+                
+                return view('User.carttemp',['carts'=>$carts])->withTotal($total)->withName($name);
             }
             else
             {
@@ -110,25 +114,70 @@ class UserController extends Controller
                 // dump($user);
                 $products = Product::Find($request->id);
                 $cart = new Cart;
-
+                $cart2 = Cart::where('username',$user['username'])->get();
+                $x = 0;
+                $y = 0;
+                
                 if($products->Stock < $request->jumlah)
                 {
                     return redirect('/productlist')->with('error', 'Stock tidak cukup');
                     // return 'lebih dari stok tersedia';
                 }
-                else
+                else if($cart2->isEmpty())
                 {
                     $totalharga = $products['Harga'] * $request->jumlah;
-                
+                    
                     $cart->username = $user['username'];
                     $cart->product_name = $products->ProductName;
                     $cart->qty = $request->jumlah;
                     $cart->price = $products->Harga;
                     $cart->Image = $products->Image;
-
+                    
                     $cart->save();
-
-                    return redirect('/productlist');
+                    
+                    return redirect('/shoppingcart');
+                }
+                else
+                {
+                    foreach($cart2 as $cart4)
+                    {
+                        $product_name = $cart4->product_name;
+                        if($product_name == $products->ProductName)
+                        {
+                            $y = 1;
+                            break;
+                        }
+                        $x = $x + 1;
+                    }
+                    if($y == 1){
+                        $cart3 = Cart::where('product_name',$products->ProductName)->get();
+                        $qty = 0;
+                        foreach($cart3 as $crt)
+                        {
+                            $qty =  $crt->qty;
+                        }
+                        $totalQty = $request->jumlah + $qty;
+                        $cart4 = Cart::where('product_name',$products->ProductName)->first();
+                        $cart4->qty = $totalQty;
+                        
+                        $cart4->save();
+        
+                        return redirect('/shoppingcart');
+                    }
+                    else
+                    {
+                        $totalharga = $products['Harga'] * $request->jumlah;
+                        
+                        $cart->username = $user['username'];
+                        $cart->product_name = $products->ProductName;
+                        $cart->qty = $request->jumlah;
+                        $cart->price = $products->Harga;
+                        $cart->Image = $products->Image;
+                        
+                        $cart->save();
+                        
+                        return redirect('/shoppingcart');   
+                    }
                 }
         }
         else
@@ -168,7 +217,6 @@ class UserController extends Controller
 
                 $userorder->product_name = $crt->product_name;
                 $userorder->qty = $crt->qty;
-                $userorder->created_at = date('Y-m-d');
                 $userorder->save();
 
                 $rating->username = $user->username;

@@ -18,7 +18,142 @@ html {
     position: relative;
 }
 
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fadeIn {
+    opacity:0;
+    -webkit-animation:fadeIn ease-in 1;
+    -moz-animation:fadeIn ease-in 1;
+    animation:fadeIn ease-in 1;
+    -webkit-animation-fill-mode:forwards;
+    -moz-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+    -webkit-animation-duration:0.5s;
+    -moz-animation-duration:0.5s;
+    animation-duration:0.5s;
+}
+
+.fadeIn.first {
+    -webkit-animation-delay: 0.1s;
+    -moz-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+}
+
+.fadeIn.second {
+    -webkit-animation-delay: 0.2s;
+    -moz-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+
+.fadeIn.third {
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+}
+
+.fadeIn.fourth {
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+}
+
+.imgContainer {
+    position: relative;
+    width: 100%;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.productImg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.imgContainer:hover .overlay {
+    opacity: 1;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.text-overlay {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.text-overlay:hover {
+    cursor: pointer;
+}
+
+a.text-ov:hover {
+    color:#f6f6f6;
+    font-size: 250%;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.text-ov {
+    color:#f6f6f6;
+    font-size: 200%;
+}
+
 /* FORM TYPOGRAPHY*/
+
+.btn1 {
+    background-color: #4d443d;
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    -webkit-box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    margin: 20px 20px 20px 20px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn1:hover {
+    background-color: #a98e68;
+}
+
+.btn1:active {
+    -moz-transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+}
 
 input[type=button], input[type=submit], input[type=reset]  {
     background-color: #4d443d;
@@ -54,16 +189,17 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
     transform: scale(0.95);
 }
 
-input[type=text], input[type=email], input[type=password], input[type=date], input[type=number] {
+input[type=text], input[type=email], input[type=password], input[type=date] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
+    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 5px;
-    width: 25%;
+    width: 85%;
     border: 2px solid #f6f6f6;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -79,8 +215,46 @@ input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
     border-bottom: 2px solid #a98e68;
 }
 
-input[type=text]:placeholder, input[type=email]:placeholder, input[type=password]:placeholder, input[type=date]:placeholder, input[type=number]:placeholder {
+input[type=text]:placeholder, input[type=email]:placeholder, input[type=password]:placeholder, input[type=date]:placeholder {
     color: #cccccc;
+}
+
+/* ANIMATIONS */
+
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
 }
 
 /* Simple CSS3 Fade-in Animation */
@@ -96,27 +270,27 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     -webkit-animation-fill-mode:forwards;
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
-    -webkit-animation-duration:0.5s;
-    -moz-animation-duration:0.5s;
-    animation-duration:0.5s;
+    -webkit-animation-duration:1s;
+    -moz-animation-duration:1s;
+    animation-duration:1s;
 }
 
 .fadeIn.first {
-    -webkit-animation-delay: 0.1s;
-    -moz-animation-delay: 0.1s;
-    animation-delay: 0.1s;
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+    animation-delay: 0.3s;
 }
 
 .fadeIn.second {
-    -webkit-animation-delay: 0.2s;
-    -moz-animation-delay: 0.2s;
-    animation-delay: 0.2s;
-}
-
-.fadeIn.third {
     -webkit-animation-delay: 0.4s;
     -moz-animation-delay: 0.4s;
     animation-delay: 0.4s;
+}
+
+.fadeIn.third {
+    -webkit-animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s;
+    animation-delay: 0.5s;
 }
 
 .fadeIn.fourth {
@@ -192,30 +366,47 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
 
     <div class="full-height mx-auto" style="width:80%;">
         <div style="padding-top:50px;">
-            <div class="row text-center">  
-                @foreach ($carts as $crt)
-                <div class="col-sm-4 fadeIn first" style="padding:3%;">
-                    <div class="card fadeIn second">
-                        <img class="productImg" src="{{ asset('uploads/products/'. $crt->Image) }}" alt="...">
-                        <div class="card-body fadeIn third">
-                            <p class="card-text"><b>{{$crt->product_name}}</b> {{$crt->qty}} @Rp.{{$crt->price}},-</p>
-                            <p class="card-text">Total = Rp.{{$crt->qty * $crt->price}},-</p>
-                            <a href="/deletecart/{{$crt->cart_id}}">Delete</a>
-                        </div>
+            @if ($carts->isEmpty())
+                <div class="row text-center">  
+                    <div class="col-sm-5 fadeIn first m-auto" id="formFooter">
+                            <h1 class="card-title"><b>You don't have any items in your cart yet.</b></h1>
+                            <a style="text-decoration: none;" class="fadeIn second btn1" href="/productlist">Discover Menu</a>
                     </div>
                 </div>
-                @endforeach
-            </div>
-            <div class="row text-center">  
-            <div class="col-sm-5 fadeIn fourth m-auto" id="formFooter">
-                <form method="POST" action="/placeorder">
-                    @csrf
-                    <!-- <h5 class="card-text">Total all = Rp.{{$total}},-</h5> -->
-                    <h5 class="card-text">Total all = <input class="text-center" type="number" name="totalall" value="{{$total}}" readonly></h5>
-                    <input type="submit" class="fadeIn fourth" value="Check Out">
-                </form>
-            </div>
-            </div>
+            @else
+                <div class="row text-center">
+                    @foreach ($carts as $crt)
+                    <div class="col-sm-4 fadeIn first" style="padding:3%;">
+                        <div class="card fadeIn second">
+                            <div class="imgContainer">
+                                <img class="productImg" src="{{ asset('uploads/products/'. $crt->Image) }}" alt="...">
+                                <div class="overlay">
+                                    <div class="text-overlay">
+                                        <a class="text-ov" href="/deletecart/{{$crt->cart_id}}">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body fadeIn third">
+                                <h5 class="card-title"><b>{{$crt->product_name}}</b></h5>
+                                <h6 class="card-text"><b>{{$crt->qty}}</b> x @Rp.{{$crt->price}},-</h6>
+                                <p class="card-text">Total = Rp.{{$crt->qty * $crt->price}},-</p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="row text-center">  
+                    <div class="col-sm-5 fadeIn fourth m-auto" id="formFooter">
+                        <form method="POST" action="/placeorder">
+                            @csrf
+                            <!-- <h5 class="card-text">Total all = Rp.{{$total}},-</h5> -->
+                            <h5 class="card-text">Total all = Rp.{{$total}},-</h5>
+                            <input type="submit" class="fadeIn fourth" value="Check Out">
+                        </form>
+                    </div>
+                </div>
+            @endif 
+            
         </div>
     </div>
         

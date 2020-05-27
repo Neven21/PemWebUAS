@@ -241,7 +241,6 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
                     <strong>{{ $message }}</strong>
                 </div>
             @endif
-
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>

@@ -63,6 +63,7 @@ html {
 .imgContainer {
     position: relative;
     width: 100%;
+    border-radius: 5px 5px 5px 5px;
 }
 
 .productImg {
@@ -87,6 +88,7 @@ html {
 
 .imgContainer:hover .overlay {
     opacity: 1;
+    border-radius: 5px 5px 5px 5px;
 }
 
 .text-overlay {
@@ -105,9 +107,16 @@ html {
     cursor: pointer;
 }
 
-h1:hover {
+a.text-ov:hover {
+    color:#f6f6f6;
     font-size: 250%;
     font-weight: bold;
+    text-decoration: none;
+}
+
+a.text-ov {
+    color:#f6f6f6;
+    font-size: 200%;
 }
 
 /* FORM TYPOGRAPHY*/
@@ -403,12 +412,12 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                             <img class="productImg" src="{{ asset('uploads/products/'. $prd->Image) }}" alt="...">
                             <div class="overlay">
                                 <div class="text-overlay">
-                                    <h1 type="button" data-id="{{$prd->id}}" data-img="{{ asset('uploads/products/'. $prd->Image) }}" data-name="{{$prd->ProductName}}" data-desc="{{$prd->Description}}" data-price="Rp. {{$prd->Harga}},-" data-category="{{$prd->Category}}" data-stock="{{$prd->Stock}}" data-rating="{{$prd->avg_rating}}" data-toggle="modal" class="openModal" href="#detailModal">Detail</h1>
+                                    <a type="button" data-id="{{$prd->id}}" data-img="{{ asset('uploads/products/'. $prd->Image) }}" data-name="{{$prd->ProductName}}" data-desc="{{$prd->Description}}" data-price="Rp. {{$prd->Harga}},-" data-category="{{$prd->Category}}" data-stock="{{$prd->Stock}}" data-rating="{{$prd->avg_rating}}" data-toggle="modal" class="openModal text-ov" href="#detailModal">Detail</a>
                                     <!-- <h1 type="button" data-id="{{$prd->id}}" data-toggle="modal" data-target="#detailModal" href="#detailModal">Detail</h1> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body fadeIn fourth">
+                        <div class="card-body fadeIn third">
                             <h5 class="card-title"><b>{{$prd->ProductName}}</b></h5>
                             <p class="card-text">Price : Rp.{{$prd->Harga}},-</p><br>
                             <!-- <a href="/productdetail/{{$prd->id}}" class="btn btn-primary">Detail</a> -->
