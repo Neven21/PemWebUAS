@@ -217,6 +217,7 @@ class UserController extends Controller
 
                 $userorder->product_name = $crt->product_name;
                 $userorder->qty = $crt->qty;
+                $userorder->created_at = date('Y-m-d');
                 $userorder->save();
 
                 $rating->username = $user->username;

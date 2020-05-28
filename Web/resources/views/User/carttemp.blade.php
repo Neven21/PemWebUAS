@@ -401,6 +401,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                             @csrf
                             <!-- <h5 class="card-text">Total all = Rp.{{$total}},-</h5> -->
                             <h5 class="card-text">Total all = Rp.{{$total}},-</h5>
+                            <input type="hidden" name="totalall" value="{{$total}}"/>
                             <input type="submit" class="fadeIn fourth" value="Check Out">
                         </form>
                     </div>
