@@ -350,7 +350,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                     @csrf
                     <p style="padding:0;">Total: <input type="number" placeholder="Amount" name="jumlah" min="1" value="1"/></p>
                     <input id="id" type="hidden" name="id" value=""/>
-                    <input type="submit" class="fadeIn fourth" value="Add to Cart">
+                    <input type="submit" class="fadeIn second" value="Add to Cart">
                 </form>
             </div>
             </div>

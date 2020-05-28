@@ -80,7 +80,6 @@ class UserController extends Controller
             $name = $user['firstname'];
             if($checkcart->isEmpty())
             {
-                // return 'cart is empty';
                 $carts = Cart::where('username',$user->username)->get();
                 $total = 0;
                 
@@ -252,15 +251,20 @@ class UserController extends Controller
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
             $checkorder = User_order::where('username',$user->username)->get();
+            $name = $user['firstname'];
             if($checkorder->isEmpty())
             {
-                return 'no order yet';
+                $currentrating = Rating::where('username',$user->username)->get();
+                $ordershistory = User_order::where('username',$user->username)->get();   
+                
+                return view('User.orderhistory',['users_orders'=>$ordershistory],['ratings'=>$currentrating])->withName($name);
             }
             else
             {
                 $currentrating = Rating::where('username',$user->username)->get();
                 $ordershistory = User_order::where('username',$user->username)->get();   
-                return view('User.orderhistory',['users_orders'=>$ordershistory],['ratings'=>$currentrating]);
+                
+                return view('User.orderhistory',['users_orders'=>$ordershistory],['ratings'=>$currentrating])->withName($name);
             }
         }
         else
