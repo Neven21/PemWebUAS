@@ -204,15 +204,18 @@ class AdminController extends Controller
             $userorder = User_order::select('product_name')->groupBy('product_name')->get();
             $quantity = User_order::selectRaw('sum(qty) as qty')->groupBy('product_name')->get();
             $categories = [];
-
-            foreach($userorder as $usrorder){
-                $categories[] = $usrorder->product_name;
-            }
-            foreach($quantity as $qtys){
-                $qty[] = $qtys->qty;
-            }
-            return view ('Admin.graph',['categories'=>$categories],['qty'=>$qty])->withName($name);;
-             
+            $qty = [];
+            if($userorder->isEmpty()){
+                return view('Admin.nograph')->withName($name);
+            }else{
+                foreach($userorder as $usrorder){
+                    $categories[] = $usrorder->product_name;
+                }
+                foreach($quantity as $qtys){
+                    $qty[] = $qtys->qty;
+                }
+                return view ('Admin.graph',['categories'=>$categories],['qty'=>$qty])->withName($name);
+            }    
         }
         else
         {
