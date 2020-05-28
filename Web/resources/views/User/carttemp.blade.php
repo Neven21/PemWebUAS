@@ -369,8 +369,8 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
             @if ($carts->isEmpty())
                 <div class="row text-center">  
                     <div class="col-sm-5 fadeIn first m-auto" id="formFooter">
-                            <h1 class="card-title"><b>You don't have any items in your cart yet.</b></h1>
-                            <a style="text-decoration: none;" class="fadeIn second btn1" href="/productlist">Discover Menu</a>
+                        <h1 class="card-title"><b>You don't have any items in your cart yet.</b></h1>
+                        <a style="text-decoration: none;" class="fadeIn second btn1" href="/productlist">Discover Menu</a>
                     </div>
                 </div>
             @else
@@ -399,14 +399,13 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                     <div class="col-sm-5 fadeIn fourth m-auto" id="formFooter">
                         <form method="POST" action="/placeorder">
                             @csrf
-                            <!-- <h5 class="card-text">Total all = Rp.{{$total}},-</h5> -->
                             <h5 class="card-text">Total all = Rp.{{$total}},-</h5>
+                            <input type="hidden" name="totalall" value="{{$total}}">
                             <input type="submit" class="fadeIn fourth" value="Check Out">
                         </form>
                     </div>
                 </div>
             @endif 
-            
         </div>
     </div>
         

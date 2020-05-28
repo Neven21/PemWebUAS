@@ -192,31 +192,28 @@ class UserController extends Controller
         {
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
-            // dump($user);
-            // $products = Product::Find($request->id);
 
-            $order = new Product_order;
-            $userorder = new User_order;
-            $rating = new Rating();
-
+            $order = new Product_order();
             $total = $request->totalall;
 
             $order->username = $user['username'];
             $order->total_price = $total;
-            $userorder->username = $user['username'];
-
             $order->save();
 
-            $carts = Cart::all();
+            $carts = Cart::where('username',$user['username'])->get();
             foreach($carts as $crt)
             {
+                $userorder = new User_order();
+                $rating = new Rating();
                 $products = Product::where('ProductName',$crt->product_name)->first();
                 $updatestock = $products->Stock - $crt->qty;
                 $products->Stock = $updatestock;
                 $products->save();
-
+                
+                $userorder->username = $user['username'];
                 $userorder->product_name = $crt->product_name;
                 $userorder->qty = $crt->qty;
+                $userorder->created_at = date('Y-m-d');
                 $userorder->save();
 
                 $rating->username = $user->username;

@@ -363,7 +363,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
             <button type="button" class="close" data-dismiss="alert">x</button>
             <strong>{{ $message }}</strong>
         </div>
-     @endif
+    @endif
 
         {{-- TAMBAHAN NEVEN UNTUK SEARCH--}}
         <form method="GET" action="/usersearch">
@@ -383,11 +383,11 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
         <a href="/sortdescbyprice"> Sort Price Desc </a> <br>
         {{-- END OF TAMBAHAN NEVEN UNTUK SORT--}}
 
-          {{-- TAMBAHAN NEVEN UNTUK FILTER--}}
-          <a href="/makananonly"> Makanan Aja - </a>
-          <a href="/minumanonly"> Minuman Aja </a>
+        {{-- TAMBAHAN NEVEN UNTUK FILTER--}}
+        <a href="/makananonly"> Makanan Aja - </a>
+        <a href="/minumanonly"> Minuman Aja </a>
 
-          <form method="GET" action="/filterprice">
+        <form method="GET" action="/filterprice">
             <div class="form-group"  style="width: 10%">
                 <select name="type"> 
                     <option value="above"> Above </option>
@@ -399,8 +399,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                 </span>
             </div>
         </form>
-    
-          {{-- END OF TAMBAHAN NEVEN UNTUK FILTER--}}
+        {{-- END OF TAMBAHAN NEVEN UNTUK FILTER--}}
 
     <div class="full-height mx-auto" style="width:90%;">
         <div style="padding-top:50px;">
@@ -413,14 +412,12 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                             <div class="overlay">
                                 <div class="text-overlay">
                                     <a type="button" data-id="{{$prd->id}}" data-img="{{ asset('uploads/products/'. $prd->Image) }}" data-name="{{$prd->ProductName}}" data-desc="{{$prd->Description}}" data-price="Rp. {{$prd->Harga}},-" data-category="{{$prd->Category}}" data-stock="{{$prd->Stock}}" data-rating="{{$prd->avg_rating}}" data-toggle="modal" class="openModal text-ov" href="#detailModal">Detail</a>
-                                    <!-- <h1 type="button" data-id="{{$prd->id}}" data-toggle="modal" data-target="#detailModal" href="#detailModal">Detail</h1> -->
                                 </div>
                             </div>
                         </div>
                         <div class="card-body fadeIn third">
                             <h5 class="card-title"><b>{{$prd->ProductName}}</b></h5>
                             <p class="card-text">Price : Rp.{{$prd->Harga}},-</p><br>
-                            <!-- <a href="/productdetail/{{$prd->id}}" class="btn btn-primary">Detail</a> -->
                         </div>
                     </div>
                 </div>
@@ -435,8 +432,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
-        // $('#exampleModal').data('mydata', {{$prd->id}}).dialog('open');
-        $(document).on("click", ".openModal", function () {
+        $(document).on("click", ".openModal", function() {
             var productId = $(this).data('id');
             var img = $(this).data('img');
             var productName = $(this).data('name');
