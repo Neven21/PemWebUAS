@@ -63,14 +63,14 @@ html {
 .imgContainer {
     position: relative;
     width: 100%;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 50%;
 }
 
 .productImg {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 50%;
 }
 
 .overlay {
@@ -84,11 +84,12 @@ html {
     opacity: 0;
     transition: .5s ease;
     background-color: rgba(0,0,0,0.6);
+    border-radius: 50%;
 }
 
 .imgContainer:hover .overlay {
     opacity: 1;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 50%;
 }
 
 .text-overlay {
@@ -145,6 +146,7 @@ a.text-ov {
 
 .btn1:hover {
     background-color: #a98e68;
+    color: white;
 }
 
 .btn1:active {
@@ -153,6 +155,7 @@ a.text-ov {
     -o-transform: scale(0.95);
     -ms-transform: scale(0.95);
     transform: scale(0.95);
+    color: white;
 }
 
 input[type=button], input[type=submit], input[type=reset]  {
@@ -298,6 +301,10 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     -moz-animation-delay: 0.6s;
     animation-delay: 0.6s;
 }
+
+.modal-footer {
+    
+}
 </style>
 
 <!doctype html>
@@ -341,8 +348,8 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link" href="/addproduct">Add Product</a>
                 </li>
-                <li class="nav-item" style="padding-left:5px; padding-right:5px; border-bottom: 2px solid #a98e68;">
-                    <a class="nav-link" style="color: #a98e68;" href="/orderlist">View Orders</a>
+                <li class="nav-item" style="padding-left:5px; padding-right:5px;">
+                    <a class="nav-link" href="/orderlist">View Orders</a>
                 </li>
                 <li class="nav-item" style="padding-left:5px; padding-right:5px;">
                     <a class="nav-link" href="/graphlist">Show Graph</a>
@@ -364,23 +371,102 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     </nav>
     <!-- Navbar -->
 
-    <div class="full-height mx-auto" style="width:90%;">
-        <div style="padding-top:50px;">
-            <div class="row text-center">  
-                @foreach ($product_orders as $ors)
-                <div class="col-sm-6 fadeIn first">
-                    <div class="card fadeIn second">
-                        <div class="card-body fadeIn second">
-                            <h5 class="card-text"><b>Order Id : {{$ors->order_id}}</b></h5>
-                            <h5 class="card-text"><b>{{$ors->username}}</b> ordered with total price of = Rp.{{$ors->total_price}},-</h5>
+    <!-- imgModal -->
+    <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-header col-sm-12 m-auto">
+                        <h2 class="col-sm-12 m-auto text-center">Edit Image</h2>
+                    </div>
+                    <form class="m-auto" method="post" enctype="multipart/form-data" action="/editprofilephoto" style="margin-bootom: 5px;">
+                        @csrf
+                        <div class="modal-header col-sm-12 m-auto">
+                            <input type="file" id ="Image" accept="image/*" class="fadeIn third col-sm-12 m-auto" name="gambar" placeholder="Image" required>
+                            <input type="hidden" id="login" class="fadeIn second" name="email" placeholder="Email" value=" {{$userdata['email']}}" required> 
+                        </div>
+                        <div class="col-sm-6 m-auto" style="padding:20px">
+                            <input type="submit" class="fadeIn third" style="margin:0;" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    
+    <!-- nameModal -->
+    <div class="modal fade" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="nameModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-header col-sm-12 m-auto">
+                        <h2 class="col-sm-12 m-auto text-center">Edit Name</h2>
+                    </div>
+                    <form class="m-auto" method="post" enctype="multipart/form-data" action="/editprofilename" style="margin-bootom: 5px;">
+                        @csrf
+                        <div class="modal-header col-sm-12 m-auto">
+                            <input type="text" id="firstname" class="fadeIn second col-sm-5 m-auto" name="firstname" placeholder="First Name" value=" {{$userdata['firstname']}}"required>
+                            <input type="text" id="lastname" class="fadeIn second col-sm-5 m-auto" name="lastname" placeholder="Last Name" value=" {{$userdata['lastname']}}" required>
+                            <input type="hidden" id="login" class="fadeIn second" name="email" placeholder="Email" value=" {{$userdata['email']}}" required> 
+                        </div>
+                        <div class="col-sm-6 m-auto" style="padding:20px">
+                            <input type="submit" class="fadeIn third" style="margin:0;" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    
+    <!-- passModal -->
+    <div class="modal fade" id="passModal" tabindex="-1" role="dialog" aria-labelledby="passModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-header col-sm-12 m-auto">
+                        <h2 class="col-sm-12 m-auto text-center">Change Password</h2>
+                    </div>
+                    <form class="m-auto" method="post" enctype="multipart/form-data" action="/editprofilepass" style="margin-bootom: 5px;">
+                        @csrf
+                        <div class="modal-header col-sm-12 m-auto">
+                            <input type="password" id="password" class="fadeIn third col-sm-8 m-auto" name="password" placeholder="Password">
+                            <input type="hidden" id="login" class="fadeIn second" name="email" placeholder="Email" value=" {{$userdata['email']}}" required> 
+                        </div>
+                        <div class="col-sm-6 m-auto" style="padding:20px">
+                            <input type="submit" class="fadeIn third" style="margin:0;" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
+    <div class="full-height mx-auto" style="width:50%;">
+        <div class="row text-center" style="padding-top:50px;">
+            <div class="col-md-4">
+                <div>
+                    <div class="imgContainer">
+                        <img class="productImg" src="{{ asset('uploads/users/'. $userdata['picture']) }}" alt="...">
+                        <div class="overlay">
+                            <div class="text-overlay">
+                                <a type="button" data-id="" data-toggle="modal" class="openModalImg text-ov" href="#imgModal">Edit</a>
+                            </div>
                         </div>
                     </div>
+                    <h1 class="text-center" style="color:#f1eedb; font-size:64px;"><b>{{$userdata['username']}}</b></h1>
                 </div>
-                @endforeach
             </div>
-            <div class="row text-center">
-                <div class="col-sm-6 fadeIn fourth m-auto" style="padding:3%;">
-                    <h5 class="card-title m-auto"><b>CURRENT STONKSS = </b>Rp.{{$total}}.-</h5>
+            <div class="col-md-8">
+                <div>
+                    <h1 class="text-center" style="color:#f1eedb; font-size:50px;"><b>{{$userdata['firstname']}} {{$userdata['lastname']}}</b> <a type="button" data-id="" class="openModalName" style="font-size:15px" data-toggle="modal" href="#nameModal">Edit</a></h1>
+                    <h2 class="text-center" style="color:#f1eedb; font-size:36px;">{{$userdata['email']}}</h2>
+                    <h3 class="text-center" style="color:#f1eedb; font-size:28px;">{{$userdata['dob']}}</h3>
+                </div>
+                <div>
+                    <a type="button" data-id="" class="openModalPass btn1" style="text-decoration: none;" data-toggle="modal" href="#passModal">Change Password</a>
                 </div>
             </div>
         </div>
@@ -391,5 +477,19 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(document).on("click", ".openModalImg", function() {
+            $("#id").val(productId);
+            $('#imgModal').modal('show');
+        });
+        $(document).on("click", ".openModalName", function() {
+            $("#id").val(productId);
+            $('#nameModal').modal('show');
+        });
+        $(document).on("click", ".openModalPass", function() {
+            $("#id").val(productId);
+            $('#passModal').modal('show');
+        });
+    </script>
 </body>
 </html>

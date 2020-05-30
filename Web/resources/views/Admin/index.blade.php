@@ -121,7 +121,7 @@ a.text-ov {
 
 /* FORM TYPOGRAPHY*/
 
-.btn1 {
+.btn1, .btnEdit, .btnDel {
     background-color: #4d443d;
     border: none;
     color: white;
@@ -143,16 +143,18 @@ a.text-ov {
     transition: all 0.3s ease-in-out;
 }
 
-.btn1:hover {
+.btn1:hover, .btnEdit:hover, .btnDel:hover {
     background-color: #a98e68;
+    color: white;
 }
 
-.btn1:active {
+.btn1:active, .btnEdit:active, .btnDel:active {
     -moz-transform: scale(0.95);
     -webkit-transform: scale(0.95);
     -o-transform: scale(0.95);
     -ms-transform: scale(0.95);
     transform: scale(0.95);
+    color: white;
 }
 
 input[type=button], input[type=submit], input[type=reset]  {
@@ -354,7 +356,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                     Welcome {{$name}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/userprofile">Profile</a>
+                        <a class="dropdown-item" href="/adminprofile">Profile</a>
                     <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout">Sign Out</a>
                     </div>

@@ -35,13 +35,23 @@ Route::post('/login', 'LoginController@checkLogin');
 
 Route::get('/userprofile', 'UserProfileController@index');  
 
+Route::get('/adminprofile', 'UserProfileController@index2'); 
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/products/{product}','AdminController@show');
 
 Route::get('/editprofile','UserProfileController@editindex');
 
+Route::get('/editprofile2','UserProfileController@editindex2');
+
 Route::post('/editprofile', 'UserProfileController@edit');
+
+Route::post('/editprofilephoto', 'UserProfileController@editPhoto');
+
+Route::post('/editprofilename', 'UserProfileController@editName');
+
+Route::post('/editprofilepass', 'UserProfileController@editPass');
 
 Route::get('/editproduct/{product}','AdminController@editindex');
 

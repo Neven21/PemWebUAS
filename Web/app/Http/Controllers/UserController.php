@@ -262,9 +262,10 @@ class UserController extends Controller
             else
             {
                 $currentrating = Rating::where('username',$user->username)->get();
-                $ordershistory = User_order::where('username',$user->username)->get();   
+                $ordershistory1 = User_order::where('username',$user->username)->get();   
+                // $ordershistory2 = User_order::where('username',$user->username)->get();   
                 
-                return view('User.orderhistory',['users_orders'=>$ordershistory],['ratings'=>$currentrating])->withName($name);
+                return view('User.orderhistory',['users_orders1'=>$ordershistory1],['ratings'=>$currentrating])->withName($name);
             }
         }
         else
@@ -280,15 +281,13 @@ class UserController extends Controller
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
 
-            $rating = Rating::where('username',$user->username)
-                                ->where('product_name',$request->productname)
-                                ->first();
+            $rating = User_order::where('order_id',$request->orderid)->first();
 
             $rating->rating = $request->rating;
 
             $rating->save();
 
-            $avgrating = Rating::where('product_name',$request->productname)
+            $avgrating = User_order::where('product_name',$request->productname)
                                     ->avg('rating');
                      
             $product = Product::where('ProductName',$request->productname)->first();

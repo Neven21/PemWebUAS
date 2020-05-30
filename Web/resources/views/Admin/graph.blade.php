@@ -361,7 +361,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                     Welcome {{$name}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/userprofile">Profile</a>
+                        <a class="dropdown-item" href="/adminprofile">Profile</a>
                     <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout">Sign Out</a>
                     </div>

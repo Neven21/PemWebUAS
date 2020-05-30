@@ -298,6 +298,42 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     -moz-animation-delay: 0.6s;
     animation-delay: 0.6s;
 }
+
+.checked {
+  color: orange;
+}
+
+.rating {
+    float:left;
+    width:300px;
+}
+.rating span { float:right; position:relative; }
+.rating span input {
+    position:absolute;
+    top:0px;
+    left:0px;
+    opacity:0;
+}
+.rating span label {
+    display:inline-block;
+    width:30px;
+    height:30px;
+    text-align:center;
+    color:#FFF;
+    background:#ccc;
+    font-size:30px;
+    margin-right:2px;
+    line-height:30px;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+}
+.rating span:hover ~ span label,
+.rating span:hover label,
+.rating span.checked label,
+.rating span.checked ~ span label {
+    background:#F90;
+    color:#FFF;
+}
 </style>
 
 <!doctype html>
@@ -310,6 +346,8 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     <!-- Bootstrap CSS -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="/bootstrap-4.0.0-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <title>Authentic Restaurant</title>
     @if (Route::has('login'))
@@ -366,7 +404,14 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
 
     <div class="full-height mx-auto" style="width:80%;">
         <div style="padding-top:50px;">
-            @if ($users_orders->isEmpty())
+            <!-- <div class="rating">
+                <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+            </div> -->
+            @if ($users_orders1->isEmpty())
                 <div class="row text-center">  
                     <div class="col-sm-5 fadeIn first m-auto" id="formFooter">
                         <h1 class="card-title"><b>You don't have any orders in your history yet.</b></h1>
@@ -375,16 +420,22 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                 </div>
             @else
                 <div class="row text-center">
-                    @foreach ($users_orders as $ors)
-                    <p>You ordered {{$ors->qty}} packages of {{$ors->product_name}}</p>
-                    <form method="POST" action="/giverating">
-                        @csrf
-                        <label> Rate this: </label>
-                        <input type="number" min="0" max="5" name="rating" placeholder="0 - 5" value="" required/>
-                        <input type="hidden" name="productname" value="{{$ors->product_name}}">
-                        <input type="submit" value="Rate">
-                    </form>
-                    @endforeach
+                    <div>
+                        @foreach ($users_orders1 as $ors1)
+                        <div class="col-sm-6 fadeIn first" style="padding:3%;">
+                            <p>{{$ors1->order_id}}</p>
+                            <p class="card-text">You ordered <b>{{$ors1->qty}}</b> packages of <b>{{$ors1->product_name}}</b></p>
+                            <form method="POST" action="/giverating">
+                                @csrf
+                                <label> Rate this: </label>
+                                <input type="number" min="0" max="5" name="rating" placeholder="0 - 5" value="" required/>
+                                <input type="hidden" name="productname" value="{{$ors1->product_name}}">
+                                <input type="hidden" name="orderid" value="{{$ors1->order_id}}">
+                                <input type="submit" value="Rate">
+                            </form>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
             @endif 
         </div>
@@ -395,5 +446,23 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function(){
+        // Check Radio-box
+        $(".rating input:radio").attr("checked", false);
+
+        $('.rating input').click(function () {
+            $(".rating span").removeClass('checked');
+            $(this).parent().addClass('checked');
+        });
+
+        $('input:radio').change(
+        function(){
+            var userRating = this.value;
+            alert(userRating);
+            $(".rating input:radio").attr("checked", false);
+        }); 
+    });
+    </script>
 </body>
 </html>

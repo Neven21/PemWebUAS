@@ -33,6 +33,25 @@ class UserProfileController extends Controller
         }
     }
 
+    public function index2()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            // $username = $user['username'];
+            // $email = $user['email'];
+            // $name = $user['firstname']. ' ' . $user['lastname'];
+            // $dob = $user['dob'];
+            $name = $user['firstname'];
+            return view('Admin.profile')->withUserdata($user)->withName($name);
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
     public function editindex()
     {
         if(Session::has('emaildata'))
@@ -47,6 +66,20 @@ class UserProfileController extends Controller
         }
     }
 
+    public function editindex2()
+    {
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            return view('Admin.editprofile')->withUserdata($user);
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+
     public function redirectUser(){
         if(Session::has('emaildata'))
         {
@@ -54,11 +87,11 @@ class UserProfileController extends Controller
             $user = User::where('email',$emaildata)->first();
             if($user['role'] == 'admin')
             {
-                return redirect('/adminhome')->withUserdata($user);
+                return redirect('/adminprofile')->withUserdata($user);
             }
             else
             {
-                return redirect('/userhome')->withUserdata($user);
+                return redirect('/userprofile')->withUserdata($user);
             }
         }
         else
@@ -95,7 +128,7 @@ class UserProfileController extends Controller
 
             if($user->role == 'admin')
             {
-                return redirect('/adminhome');
+                return redirect('/adminprofile');
             }
             else
             {
@@ -106,7 +139,101 @@ class UserProfileController extends Controller
         {
             return 'UNAUTHORIZED ACCESS';
         }
+    }
+    
+    public function editPhoto(Request $request)
+    {
+    
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $user->email = $request->email;
 
+            Session::put('emaildata',$request->email);
+
+            if($request->hasfile('gambar')){
+                $file = $request->file('gambar');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/users', $filename);
+                $user->picture = $filename;
+            }
+
+            $user->save();
+
+            if($user->role == 'admin')
+            {
+                return redirect('/adminprofile');
+            }
+            else
+            {
+                return redirect('/userprofile');
+            }
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+    
+    public function editName(Request $request)
+    {
+    
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $user->email = $request->email;
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+
+            Session::put('emaildata',$request->email);
+
+            $user->save();
+
+            if($user->role == 'admin')
+            {
+                return redirect('/adminprofile');
+            }
+            else
+            {
+                return redirect('/userprofile');
+            }
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
+    }
+    
+    public function editPass(Request $request)
+    {
+    
+        if(Session::has('emaildata'))
+        {
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+
+            Session::put('emaildata',$request->email);
+
+            $user->save();
+
+            if($user->role == 'admin')
+            {
+                return redirect('/adminprofile');
+            }
+            else
+            {
+                return redirect('/userprofile');
+            }
+        }
+        else
+        {
+            return 'UNAUTHORIZED ACCESS';
+        }
     }
 
     /**

@@ -25,7 +25,7 @@ class AdminController extends Controller
             $user = User::where('email',$emaildata)->first();
             // dump($user);
             $products = Product::all();
-            $name = $user['firstname']. ' ' . $user['lastname'];
+            $name = $user['firstname'];
             return view('Admin.index',['products'=>$products])->withName($name);
         }
         else
@@ -98,7 +98,7 @@ class AdminController extends Controller
             $user = User::where('email',$emaildata)->first();
             // dump($user);
             $products = Product::Find($id);
-            $name = $user['firstname']. ' ' . $user['lastname'];
+            $name = $user['firstname'];
             return view('Products.admin',['products'=>$products])->withName($name);
         }
         else
@@ -173,6 +173,9 @@ class AdminController extends Controller
         if(Session::get('emaildata') == 'admin@admin.com')
         {
             $checkorder = Product_order::all();
+            $emaildata = Session::get('emaildata');
+            $user = User::where('email',$emaildata)->first();
+            $name = $user['firstname'];
             if($checkorder->isEmpty())
             {
                 return 'no orders yet';
@@ -185,7 +188,7 @@ class AdminController extends Controller
                 {
                     $totalincome = $totalincome + $ors->total_price;
                 }
-                return view ('Admin.orderlist',['product_orders'=>$orders])->withTotal($totalincome);
+                return view ('Admin.orderlist',['product_orders'=>$orders])->withTotal($totalincome)->withName($name);
              }
         }
         else
@@ -200,7 +203,7 @@ class AdminController extends Controller
         {
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
-            $name = $user['firstname']. ' ' . $user['lastname'];
+            $name = $user['firstname'];
             $userorder = User_order::select('product_name')->groupBy('product_name')->get();
             $quantity = User_order::selectRaw('sum(qty) as qty')->groupBy('product_name')->get();
             $categories = [];

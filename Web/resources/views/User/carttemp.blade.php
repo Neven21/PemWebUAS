@@ -145,6 +145,7 @@ a.text-ov {
 
 .btn1:hover {
     background-color: #a98e68;
+    color: white;
 }
 
 .btn1:active {
@@ -153,6 +154,7 @@ a.text-ov {
     -o-transform: scale(0.95);
     -ms-transform: scale(0.95);
     transform: scale(0.95);
+    color: white;
 }
 
 input[type=button], input[type=submit], input[type=reset]  {
