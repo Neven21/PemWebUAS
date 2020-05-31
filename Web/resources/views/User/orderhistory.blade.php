@@ -411,7 +411,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                 <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
                 <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
             </div> -->
-            @if ($users_orders->isEmpty())
+            @if ($users_orders1->isEmpty())
                 <div class="row text-center">  
                     <div class="col-sm-5 fadeIn first m-auto" id="formFooter">
                         <h1 class="card-title"><b>You don't have any orders in your history yet.</b></h1>
@@ -421,7 +421,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
             @else
                 <div class="row text-center">
                     <div>
-                        @foreach ($users_orders as $ors1)
+                        @foreach ($users_orders1 as $ors1)
                         <div class="col-sm-6 fadeIn first" style="padding:3%;">
                             <p>{{$ors1->order_id}}</p>
                             <p class="card-text">You ordered <b>{{$ors1->qty}}</b> packages of <b>{{$ors1->product_name}}</b></p>
