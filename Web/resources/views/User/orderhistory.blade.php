@@ -435,6 +435,20 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                             </form>
                         </div>
                         @endforeach
+                        @foreach ($users_orders2 as $ors1)
+                        <div class="col-sm-6 fadeIn first" style="padding:3%;">
+                            <p>{{$ors1->order_id}}</p>
+                            <p class="card-text">You ordered with No Rating <b>{{$ors1->qty}}</b> packages of <b>{{$ors1->product_name}}</b></p>
+                            <form method="POST" action="/giverating">
+                                @csrf
+                                <label> Rate this: </label>
+                                <input type="number" min="0" max="5" name="rating" placeholder="0 - 5" value="" required/>
+                                <input type="hidden" name="productname" value="{{$ors1->product_name}}">
+                                <input type="hidden" name="orderid" value="{{$ors1->order_id}}">
+                                <input type="submit" value="Rate">
+                            </form>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
             @endif 
