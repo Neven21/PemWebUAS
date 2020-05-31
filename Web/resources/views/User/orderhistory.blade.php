@@ -305,33 +305,38 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
 
 .rating {
     float:left;
-    width:300px;
 }
-.rating span { float:right; position:relative; }
-.rating span input {
+
+.rating i { 
+    float:right; 
+    position:relative;
+    padding:5px;
+}
+
+.rating i input {
     position:absolute;
     top:0px;
     left:0px;
     opacity:0;
 }
-.rating span label {
-    display:inline-block;
-    width:30px;
-    height:30px;
+
+.rating i label {
+    width:20px;
+    height:20px;
     text-align:center;
     color:#FFF;
     background:#ccc;
     font-size:30px;
-    margin-right:2px;
     line-height:30px;
     border-radius:50%;
     -webkit-border-radius:50%;
 }
-.rating span:hover ~ span label,
-.rating span:hover label,
-.rating span.checked label,
-.rating span.checked ~ span label {
-    background:#F90;
+
+.rating i:hover ~ i label,
+.rating i:hover label,
+.rating i.checked label,
+.rating i.checked ~ i label {
+    background: orange;
     color:#FFF;
 }
 </style>
@@ -347,7 +352,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="/bootstrap-4.0.0-dist/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
     <title>Authentic Restaurant</title>
     @if (Route::has('login'))
@@ -404,14 +409,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
 
     <div class="full-height mx-auto" style="width:80%;">
         <div style="padding-top:50px;">
-            <!-- <div class="rating">
-                <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
-                <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
-                <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
-                <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
-                <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
-            </div> -->
-            @if ($users_orders1->isEmpty())
+            @if ($users_orders->isEmpty())
                 <div class="row text-center">  
                     <div class="col-sm-5 fadeIn first m-auto" id="formFooter">
                         <h1 class="card-title"><b>You don't have any orders in your history yet.</b></h1>
@@ -419,37 +417,45 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                     </div>
                 </div>
             @else
-                <div class="row text-center">
-                    <div>
-                        @foreach ($users_orders1 as $ors1)
+                <div class="row text-center" style="border-bottom: 2px solid #ffffff;">
+                        @foreach ($users_orders as $ors1)
                         <div class="col-sm-6 fadeIn first" style="padding:3%;">
                             <p>{{$ors1->order_id}}</p>
                             <p class="card-text">You ordered <b>{{$ors1->qty}}</b> packages of <b>{{$ors1->product_name}}</b></p>
-                            <form method="POST" action="/giverating">
-                                @csrf
-                                <label> Rate this: </label>
-                                <input type="number" min="0" max="5" name="rating" placeholder="0 - 5" value="" required/>
-                                <input type="hidden" name="productname" value="{{$ors1->product_name}}">
-                                <input type="hidden" name="orderid" value="{{$ors1->order_id}}">
-                                <input type="submit" value="Rate">
-                            </form>
+                            <div>
+                                <i class="fa fa-star {{$ors1->rating >= 1 ? 'checked' : ''}} aria-hidden="false"></i>
+                                <i class="fa fa-star {{$ors1->rating >= 2 ? 'checked' : ''}} aria-hidden="false"></i>
+                                <i class="fa fa-star {{$ors1->rating >= 3 ? 'checked' : ''}} aria-hidden="false"></i>
+                                <i class="fa fa-star {{$ors1->rating >= 4 ? 'checked' : ''}} aria-hidden="false"></i>
+                                <i class="fa fa-star {{$ors1->rating >= 5 ? 'checked' : ''}} aria-hidden="false"></i>
+                            </div>
                         </div>
                         @endforeach
-                        @foreach ($users_orders2 as $ors1)
-                        <div class="col-sm-6 fadeIn first" style="padding:3%;">
-                            <p>{{$ors1->order_id}}</p>
-                            <p class="card-text">You ordered with No Rating <b>{{$ors1->qty}}</b> packages of <b>{{$ors1->product_name}}</b></p>
+                </div>
+                <div class="row text-center">
+                    @foreach ($users_orders2 as $ors1)
+                    <div class="col-sm-6 fadeIn first" style="padding:3%;">
+                        <p>{{$ors1->order_id}}</p>
+                        <p class="card-text">You ordered with No Rating <b>{{$ors1->qty}}</b> packages of <b>{{$ors1->product_name}}</b></p>
+                        <div class="col-sm-12 fadeIn first">
+                        <label class="card-text">Rate this:   </label>
                             <form method="POST" action="/giverating">
                                 @csrf
-                                <label> Rate this: </label>
-                                <input type="number" min="0" max="5" name="rating" placeholder="0 - 5" value="" required/>
+                                <div class="rating col-md-5 m-auto fadeIn second">
+                                    <i><input type="radio" name="rating" id="str5" value="5" data-id="{{$ors1->order_id}}"><label for="str5"></label></i>
+                                    <i><input type="radio" name="rating" id="str4" value="4" data-id="{{$ors1->order_id}}"><label for="str4"></label></i>
+                                    <i><input type="radio" name="rating" id="str3" value="3" data-id="{{$ors1->order_id}}"><label for="str3"></label></i>
+                                    <i><input type="radio" name="rating" id="str2" value="2" data-id="{{$ors1->order_id}}"><label for="str2"></label></i>
+                                    <i><input type="radio" name="rating" id="str1" value="1" data-id="{{$ors1->order_id}}"><label for="str1"></label></i>
+                                </div>
+                                <input id="ratingvalue{{$ors1->order_id}}" type="hidden" min="0" max="5" name="rating" placeholder="0 - 5" value="" required/>
                                 <input type="hidden" name="productname" value="{{$ors1->product_name}}">
                                 <input type="hidden" name="orderid" value="{{$ors1->order_id}}">
-                                <input type="submit" value="Rate">
+                                <input class="m-auto" type="submit" value="Rate" style="padding-right:auto;">
                             </form>
                         </div>
-                        @endforeach
                     </div>
+                    @endforeach
                 </div>
             @endif 
         </div>
@@ -466,15 +472,15 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
         $(".rating input:radio").attr("checked", false);
 
         $('.rating input').click(function () {
-            $(".rating span").removeClass('checked');
+            $(".rating i").removeClass('checked');
             $(this).parent().addClass('checked');
         });
 
         $('input:radio').change(
         function(){
+            var productId = $(this).data('id');
             var userRating = this.value;
-            alert(userRating);
-            $(".rating input:radio").attr("checked", false);
+            document.getElementById("ratingvalue"+productId).value = userRating;
         }); 
     });
     </script>
