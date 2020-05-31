@@ -515,24 +515,6 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
         </div>
     @endif
 
-        <!-- {{-- TAMBAHAN NEVEN UNTUK FILTER--}}
-        <a href="/makananonly"> Makanan Aja - </a>
-        <a href="/minumanonly"> Minuman Aja </a>
-
-        <form method="GET" action="/filterprice">
-            <div class="form-group"  style="width: 10%">
-                <select name="type"> 
-                    <option value="above"> Above </option>
-                    <option value="below"> Below </option>
-                </select>
-                <input type="number" name="price" class="form-control" placeholder="Input price..." required>
-                <span class="form-group-btn">
-                    <button type="submit" class="btn btn-primary"> Filter Price</button>
-                </span>
-            </div>
-        </form>
-        {{-- END OF TAMBAHAN NEVEN UNTUK FILTER--}} -->
-
     <div class="full-height mx-auto" style="width:90%;">
         <div style="padding-top:50px;">
             <div class="row text-center">  

@@ -300,6 +300,101 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     -moz-animation-delay: 0.6s;
     animation-delay: 0.6s;
 }
+
+/* Search */
+.searchbar{
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: #f6f6f6;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.search_input{
+    color: black;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_input{
+    padding: 0 10px;
+    width: 300px;
+    caret-color:#a98e68;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_icon{
+    background: transparent;
+    color: black;
+}
+
+
+.search_icon{
+    height: 40px;
+    width: 60px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    text-decoration:none;
+}
+
+.sort:hover {
+    font-size:200%
+}
+
+.filter:hover {
+    font-size:200%
+}
+
+.btnSort:hover {
+    font-size:250%
+}
+
+.btnFilter:hover {
+    font-size:250%
+}
+
+.filterBtn {
+    padding: 5px 15px;
+    background-color: #4d443d;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    -webkit-box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.filterBtn:hover {
+    background-color: #a98e68;
+}
+
+.filterBtn:active {
+    -moz-transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+}
 </style>
 
 <!doctype html>
@@ -390,19 +485,75 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     </div>
     <!-- Modal -->
 
-    {{-- TAMBAHAN NEVEN UNTUK SEARCH--}}
-    <form method="GET" action="/adminsearch">
-        <div class="form-group"  style="width: 10%">
-            <input type="search" name="search" class="form-control">
-            <span class="form-group-btn">
-                <button type="submit" class="btn btn-primary"> Search </button>
-            </span>
+    <!-- sortModal -->
+    <div class="modal fade" id="sortModal" tabindex="-1" role="dialog" aria-labelledby="sortModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="m-auto text-center">Sort</h1>
+                </div>
+                <div class="modal-body m-auto text-center">
+                    <h3 class="sort"><a href="/sortascbyname" style="text-decoration:none; color:black"> Sort Name Asc </a></h3>
+                    <h3 class="sort"><a href="/sortdescbyname" style="text-decoration:none; color:black"> Sort Name Desc </a></h3>
+                </div>
+                <div class="modal-body m-auto text-center">
+                    <h3 class="sort"><a href="/sortascbyprice" style="text-decoration:none; color:black"> Sort Price Asc </a></h3>
+                    <h3 class="sort"><a href="/sortdescbyprice" style="text-decoration:none; color:black"> Sort Price Desc </a></h3>
+                </div>
+            </div>
         </div>
-    </form>
-    {{-- END OF TAMBAHAN NEVEN UNTUK SEARCH--}}
+    </div>
+    <!-- Modal -->
+    
+    <!-- filterModal -->
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="m-auto text-center">Filter</h1>
+                </div>
+                <div class="modal-body m-auto text-center">
+                    <h3 class="filter"><a href="/makananonly" style="text-decoration:none; color:black"> Makanan Aja </a></h3>
+                    <h3 class="filter"><a href="/minumanonly" style="text-decoration:none; color:black"> Minuman Aja </a></h3>
+                </div>
+                <div class="modal-footer text-center" style="padding-left:0; padding-right:0;">
+                    <form class="m-auto" method="GET" action="/filterprice">
+                        <div class="form-group">
+                            <div class="col-sm-3 m-auto" style="display: inline-block; padding:0;">
+                                <select name="type"> 
+                                    <option value="above"> Above </option>
+                                    <option value="below"> Below </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4 m-auto" style="display: inline-block; padding:0;;">
+                                <input type="number" name="price" class="form-control" placeholder="Input Price..." required>
+                            </div>
+                            <div class="form-group-btn col-sm-4" style="display: inline-block; padding:0;">
+                                <button type="submit" class="filterBtn">Filter Price</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
 
     <div class="full-height mx-auto" style="width:90%;">
         <div style="padding-top:50px;">
+            <div class="row text-center">  
+                <div class="col-sm-4">
+                    <h2 class="btnSort"><b><a style="text-decoration:none; float:right; color:white" type="button" data-toggle="modal" class="openModalSort" href="#sortModal">Sort</a></b></h2>
+                </div>
+                <div class="col-sm-4 m-auto input-group">
+                    <form class="col-sm-12 m-auto input-group" method="GET" action="/adminsearch">
+                        <input type="text" name="search" class="form-control" placeholder="Search Menu...">
+                    </form>
+                </div>
+                <div class="col-sm-4">
+                    <h2 class="btnFilter"><b><a style="text-decoration:none; float:left; color:white" type="button" data-toggle="modal" class="openModalFilter" href="#filterModal">Filer</a></b></h2>
+                </div>
+            </div>
             <div class="row text-center">  
                 @foreach ($products as $prd)
                 <div class="col-sm-4 fadeIn first" style="padding:3%;">
@@ -417,6 +568,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                         </div>
                         <div class="card-body fadeIn third">
                             <h5 class="card-title"><b>{{$prd->ProductName}}</b></h5>
+                            <p class="card-text">Price : Rp.{{$prd->Harga}},-</p><br>
                         </div>
                     </div>
                 </div>

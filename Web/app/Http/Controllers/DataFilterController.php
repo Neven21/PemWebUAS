@@ -81,8 +81,14 @@ class DataFilterController extends Controller
 
             $sortedproducts = Product::all()->sortBy('ProductName');
 
-            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
-            
+            if($user->role == 'admin')
+            {
+                return view('Admin.index',['products'=>$sortedproducts])->withName($name);
+            }
+            else
+            {
+                return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            }
         }
         else
         {
@@ -100,8 +106,14 @@ class DataFilterController extends Controller
 
             $sortedproducts = Product::all()->sortByDesc('ProductName');
 
-            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
-            
+            if($user->role == 'admin')
+            {
+                return view('Admin.index',['products'=>$sortedproducts])->withName($name);
+            }
+            else
+            {
+                return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            }
         }
         else
         {
@@ -119,14 +131,18 @@ class DataFilterController extends Controller
 
             $sortedproducts = Product::all()->sortBy('Harga');
 
-            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
-            
+            if($user->role == 'admin')
+            {
+                return view('Admin.index',['products'=>$sortedproducts])->withName($name);
+            }
+            else
+            {
+                return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            }
         }
         else
         {
             return 'UNAUTHORIZED ACCESS';
-     
-     
         }
     }
 
@@ -140,8 +156,14 @@ class DataFilterController extends Controller
 
             $sortedproducts = Product::all()->sortByDesc('Harga');
 
-            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
-            
+            if($user->role == 'admin')
+            {
+                return view('Admin.index',['products'=>$sortedproducts])->withName($name);
+            }
+            else
+            {
+                return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            }  
         }
         else
         {
@@ -159,8 +181,14 @@ class DataFilterController extends Controller
 
             $sortedproducts = Product::where('Category','Makanan')->get();
 
-            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
-            
+            if($user->role == 'admin')
+            {
+                return view('Admin.index',['products'=>$sortedproducts])->withName($name);
+            }
+            else
+            {
+                return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            }    
         }
         else
         {
@@ -178,8 +206,14 @@ class DataFilterController extends Controller
 
             $sortedproducts = Product::where('Category','Minuman')->get();
 
-            return view('User.productlist',['products'=>$sortedproducts])->withName($name);
-            
+            if($user->role == 'admin')
+            {
+                return view('Admin.index',['products'=>$sortedproducts])->withName($name);
+            }
+            else
+            {
+                return view('User.productlist',['products'=>$sortedproducts])->withName($name);
+            }     
         }
         else
         {
@@ -205,8 +239,14 @@ class DataFilterController extends Controller
                 $filteredproducts = Product::where('Harga','<=',$price)->get();
             }
 
-            return view('User.productlist',['products'=>$filteredproducts])->withName($name);
-            
+            if($user->role == 'admin')
+            {
+                return view('Admin.index',['products'=>$filteredproducts])->withName($name);
+            }
+            else
+            {
+                return view('User.productlist',['products'=>$filteredproducts])->withName($name);
+            }
         }
         else
         {
