@@ -250,23 +250,12 @@ class UserController extends Controller
         {
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
-            $checkorder = User_order::where('username',$user->username)->get();
             $name = $user['firstname'];
-            if($checkorder->isEmpty())
-            {
-                $currentrating = Rating::where('username',$user->username)->get();
-                $ordershistory = User_order::where('username',$user->username)->get();   
-                
-                return view('User.orderhistory',['users_orders'=>$ordershistory],['ratings'=>$currentrating])->withName($name);
-            }
-            else
-            {
-                $currentrating = Rating::where('username',$user->username)->get();
-                $ordershistory1 = User_order::where('username',$user->username)->get();   
-                // $ordershistory2 = User_order::where('username',$user->username)->get();   
-                
-                return view('User.orderhistory',['users_orders1'=>$ordershistory1],['ratings'=>$currentrating])->withName($name);
-            }
+            $currentrating = Rating::where('username',$user->username)->get();
+            $ordershistory = User_order::where('username',$user->username)->get();   
+            return view('User.orderhistory',['users_orders'=>$ordershistory],['ratings'=>$currentrating])->withName($name);
+            
+          
         }
         else
         {
@@ -287,9 +276,8 @@ class UserController extends Controller
 
             $rating->save();
 
-            $avgrating = User_order::where('product_name',$request->productname)
+            $avgrating = User_order::where('product_name',$request->productname)->where('rating','>=',1)
                                     ->avg('rating');
-                     
             $product = Product::where('ProductName',$request->productname)->first();
             $product->avg_rating = $avgrating;
             $product->save();

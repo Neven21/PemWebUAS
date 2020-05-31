@@ -60,6 +60,8 @@ class RegisterController extends Controller
             $filename = time() . '.' . $extension;
             $file->move('uploads/users', $filename);
             $user->picture = $filename;
+        }else{
+            $user->picture = '/';
         }
 
        $user->save();
