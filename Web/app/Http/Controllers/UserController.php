@@ -251,11 +251,10 @@ class UserController extends Controller
             $emaildata = Session::get('emaildata');
             $user = User::where('email',$emaildata)->first();
             $name = $user['firstname'];
-            $currentrating = Rating::where('username',$user->username)->get();
-            $ordershistory = User_order::where('username',$user->username)->get();   
-            return view('User.orderhistory',['users_orders'=>$ordershistory],['ratings'=>$currentrating])->withName($name);
+            $ordershistory = User_order::where('username',$user->username)->where('rating','>=',1)->get();
+            $ordershistory2 = User_order::where('username', $user->username)->where('rating','=',0)->get(); 
+            return view('User.orderhistory',['users_orders'=>$ordershistory],['users_orders2'=>$ordershistory2])->withName($name);
             
-          
         }
         else
         {
