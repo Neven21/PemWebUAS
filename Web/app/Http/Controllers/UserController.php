@@ -217,7 +217,7 @@ class UserController extends Controller
 
             $cart = Cart::where('username',$user['username'])->delete();
 
-            return redirect('/productlist');
+            return redirect('/orderhistory');
         }
         else
         {
@@ -230,6 +230,21 @@ class UserController extends Controller
         $cart = Cart::where('cart_id',$id)->first();
 
         $cart->forceDelete();
+
+        return redirect('/shoppingcart');
+    }
+    
+    public function editcart(Request $request)
+    {
+        $id = $request->cart_id;
+        $qty = $request->qty;
+        $price = $request->price;
+        $cart = Cart::where('cart_id',$id)->first();
+
+        $cart->qty = $qty;
+        $cart->price = $price;
+
+        $cart->save();
 
         return redirect('/shoppingcart');
     }

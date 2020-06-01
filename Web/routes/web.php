@@ -71,6 +71,8 @@ Route::get('/productdetail/{product}','UserController@productdetail');
 
 Route::post('/addtocart','UserController@addtocart');
 
+Route::post('/editcart','UserController@editcart');
+
 Route::get('/shoppingcart','UserController@showcart');
 
 Route::get('/deletecart/{cart}','UserController@destroycart');

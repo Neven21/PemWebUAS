@@ -300,6 +300,113 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     -moz-animation-delay: 0.6s;
     animation-delay: 0.6s;
 }
+
+/* qty input */
+
+.input-number-group {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.input-number-group input[type=number]::-webkit-inner-spin-button,
+.input-number-group input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+.input-number-group .input-group-button {
+  line-height: calc(80px/2 - 5px);
+}
+
+.input-number-group .input-number {
+  width: 80px;
+  padding: 0 12px;
+  vertical-align: top;
+  text-align: center;
+  outline: none;
+  display: block;
+  margin: 0;
+  border-radius: 5%;
+}
+
+.input-number-group .input-number,
+.input-number-group .input-number-decrement,
+.input-number-group .input-number-increment {
+  border: 1px solid #cacaca;
+  height: 40px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.input-number-group .input-number-decrement,
+.input-number-group .input-number-increment {
+  display: inline-block;
+  width: 40px;
+  background: #e6e6e6;
+  color: #0a0a0a;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: 400;
+  border-radius:50%;
+}
+
+.input-number-group .input-number-decrement {
+    background-color: #4d443d;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    -webkit-box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    margin-right: 10px;
+    border-radius:50%;
+}
+
+.input-number-group .input-number-decrement:hover {
+    background-color: #a98e68;
+}
+
+.input-number-group .input-number-increment {
+    background-color: #4d443d;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    -webkit-box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    box-shadow: 0 0 20px 0 rgba(169,142,104,0.4);
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    margin-left: 10px;
+    border-radius:50%;
+}
+
+.input-number-group .input-number-increment:hover {
+    background-color: #a98e68;
+}
+
+#ninjaUpdate {
+    display:none;
+}
 </style>
 
 <!doctype html>
@@ -389,9 +496,24 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                             </div>
                             <div class="card-body fadeIn third">
                                 <h5 class="card-title"><b>{{$crt->product_name}}</b></h5>
-                                <h6 class="card-text"><b>{{$crt->qty}}</b> x @Rp.{{$crt->price}},-</h6>
-                                <p class="card-text">Total = Rp.{{$crt->qty * $crt->price}},-</p>
+                                <h6 class="card-text">@Rp.{{$crt->price}},-</h6>
+                                <div class="input-group input-number-group" style="padding-top:5px; padding-bottom:10px;">
+                                    <div class="input-group-button">
+                                        <span class="input-number-decrement" data-price="{{$crt->price}}" data-id="{{$crt->cart_id}}">-</span>
+                                    </div>
+                                    <input class="input-number" type="number" value="{{$crt->qty}}" min="1" max="1000" readonly>
+                                    <div class="input-group-button">
+                                        <span class="input-number-increment" data-price="{{$crt->price}}" data-id="{{$crt->cart_id}}">+</span>
+                                    </div>
+                                </div>
+                                <p id="total" class="card-text">Total = Rp.{{$crt->qty * $crt->price}},-</p>
                             </div>
+                            <form id="ninjaUpdate" method="POST" action="/editcart">
+                                @csrf
+                                <input id="cartId" type="hidden" name="cart_id" value="{{$crt->cart_id}}">
+                                <input id="qtyUpdate" type="hidden" name="qty" value="a">
+                                <input id="priceUpdate" type="hidden" name="price" value="b">
+                            </form>
                         </div>
                     </div>
                     @endforeach
@@ -414,5 +536,42 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        function postToURL(action,cartId,cartIdVal,qtyUpdate,qtyUpdateVal,priceUpdate,priceUpdateVal){
+            document.getElementById("ninjaUpdate").action = action;
+            document.getElementById("ninjaUpdate").method = "POST";
+            document.getElementById("cartId").name = cartId;
+            document.getElementById("cartId").value = cartIdVal;
+            document.getElementById("qtyUpdate").name = qtyUpdate;
+            document.getElementById("qtyUpdate").value = qtyUpdateVal;
+            document.getElementById("priceUpdate").name = priceUpdate;
+            document.getElementById("priceUpdate").value = priceUpdateVal;
+            document.getElementById("ninjaUpdate").submit();
+        }
+
+        $('.input-number-increment').click(function() {
+            var price = $(this).data('price');
+            var id = $(this).data('id');
+            var $input = $(this).parents('.input-number-group').find('.input-number');
+            var val = parseInt($input.val(), 10);
+            var total = price * (val + 1);
+            postToURL("/editcart","cart_id",id,"qty",(val + 1),"price",price);
+        });
+
+        $('.input-number-decrement').click(function() {
+            var price = $(this).data('price');
+            var id = $(this).data('id');
+            var $input = $(this).parents('.input-number-group').find('.input-number');
+            var val = parseInt($input.val(), 10);
+            if(val <= 1){
+                var total = price * 1;
+                postToURL("/editcart","cart_id",id,"qty",1,"price",price);
+            }
+            else{
+                var total = price * (val - 1);
+                postToURL("/editcart","cart_id",id,"qty",(val - 1),"price",price);
+            }
+        });
+    </script>
 </body>
 </html>

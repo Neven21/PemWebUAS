@@ -386,7 +386,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                 </div>
                 <div class="row text-center">
                     <div class="col-sm-6 fadeIn fourth m-auto" style="padding:3%;">
-                        <h5 class="card-title m-auto"><b>CURRENT STONKSS = </b>Rp.{{$total}}.-</h5>
+                        <h5 class="card-title m-auto"><b>CURRENT INCOME = </b>Rp.{{$total}}.-</h5>
                     </div>
                 </div>
             @endif 

@@ -512,8 +512,8 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                     <h1 class="m-auto text-center">Filter</h1>
                 </div>
                 <div class="modal-body m-auto text-center">
-                    <h3 class="filter"><a href="/makananonly" style="text-decoration:none; color:black"> Makanan Aja </a></h3>
-                    <h3 class="filter"><a href="/minumanonly" style="text-decoration:none; color:black"> Minuman Aja </a></h3>
+                    <h3 class="filter"><a href="/makananonly" style="text-decoration:none; color:black"> Makanan </a></h3>
+                    <h3 class="filter"><a href="/minumanonly" style="text-decoration:none; color:black"> Minuman </a></h3>
                 </div>
                 <div class="modal-footer text-center" style="padding-left:0; padding-right:0;">
                     <form class="m-auto" method="GET" action="/filterprice">
@@ -550,7 +550,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                     </form>
                 </div>
                 <div class="col-sm-4">
-                    <h2 class="btnFilter"><b><a style="text-decoration:none; float:left; color:white" type="button" data-toggle="modal" class="openModalFilter" href="#filterModal">Filer</a></b></h2>
+                    <h2 class="btnFilter"><b><a style="text-decoration:none; float:left; color:white" type="button" data-toggle="modal" class="openModalFilter" href="#filterModal">Filter</a></b></h2>
                 </div>
             </div>
             <div class="row text-center">  
@@ -594,7 +594,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
             document.getElementById("productImg").src = img;
             document.getElementById("productName").innerHTML = "<b>"+productName+"</b>";
             document.getElementById("rating").innerHTML = "Rating : "+rating;
-            document.getElementById("category").innerHTML = "Categoty : "+category;
+            document.getElementById("category").innerHTML = "Category : "+category;
             document.getElementById("desc").innerHTML = "Description : "+desc;
             document.getElementById("stock").innerHTML = "Stock : "+stock;
             document.getElementById("price").innerHTML = "Price : "+price;

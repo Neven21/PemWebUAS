@@ -430,7 +430,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                     <form class="m-auto" method="post" enctype="multipart/form-data" action="/editprofilepass" style="margin-bootom: 5px;">
                         @csrf
                         <div class="modal-header col-sm-12 m-auto">
-                            <input type="password" id="password" class="fadeIn third col-sm-8 m-auto" name="password" placeholder="Mew Password">
+                            <input type="password" id="password" class="fadeIn third col-sm-8 m-auto" name="password" placeholder="New Password">
                             <input type="hidden" id="login" class="fadeIn second" name="email" placeholder="Email" value=" {{$userdata['email']}}" required> 
                         </div>
                         <div class="col-sm-6 m-auto" style="padding:20px">

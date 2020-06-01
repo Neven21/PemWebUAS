@@ -405,6 +405,36 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     </nav>
     <!-- Navbar -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="productName" class="m-auto text-center productName"></h4>
+            </div>
+            <form method="POST" action="/giverating">
+                <div class="modal-body">
+                    @csrf
+                    <div class="rating col-md-12 m-auto fadeIn second" style="padding-right:33%;">
+                        <i><input class="rate5" type="radio" name="rating" id="str5" value="5" data-id="/"><label for="str5"></label></i>
+                        <i><input class="rate4" type="radio" name="rating" id="str4" value="4" data-id="/"><label for="str4"></label></i>
+                        <i><input class="rate3" type="radio" name="rating" id="str3" value="3" data-id="/"><label for="str3"></label></i>
+                        <i><input class="rate2" type="radio" name="rating" id="str2" value="2" data-id="/"><label for="str2"></label></i>
+                        <i><input class="rate1" type="radio" name="rating" id="str1" value="1" data-id="/"><label for="str1"></label></i>
+                    </div>
+                    <input class="ratingval" id="/" type="hidden" min="0" max="5" name="rating" placeholder="0 - 5" value="" required/>
+                    <input id="prodNameModal" type="hidden" name="productname" value="">
+                    <input id="orderIdModal" type="hidden" name="orderid" value="">
+                </div>
+                <div class="modal-footer" style="border-top:none;">
+                    <input class="m-auto" type="submit" value="Rate" style="padding-right:auto;">
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
     <div class="full-height mx-auto" style="width:80%;">
         <div style="padding-top:50px;">
             @if ($orderhistory3->isEmpty())
@@ -436,21 +466,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
                         <p>{{$ors1->order_id}}</p>
                         <p class="card-text">You ordered with No Rating <b>{{$ors1->qty}}</b> packages of <b>{{$ors1->product_name}}</b></p>
                         <div class="col-sm-12 fadeIn first">
-                        <label class="card-text">Rate this:   </label>
-                            <form method="POST" action="/giverating">
-                                @csrf
-                                <div class="rating col-md-5 m-auto fadeIn second">
-                                    <i><input type="radio" name="rating" id="str5" value="5" data-id="{{$ors1->order_id}}"><label for="str5"></label></i>
-                                    <i><input type="radio" name="rating" id="str4" value="4" data-id="{{$ors1->order_id}}"><label for="str4"></label></i>
-                                    <i><input type="radio" name="rating" id="str3" value="3" data-id="{{$ors1->order_id}}"><label for="str3"></label></i>
-                                    <i><input type="radio" name="rating" id="str2" value="2" data-id="{{$ors1->order_id}}"><label for="str2"></label></i>
-                                    <i><input type="radio" name="rating" id="str1" value="1" data-id="{{$ors1->order_id}}"><label for="str1"></label></i>
-                                </div>
-                                <input id="ratingvalue{{$ors1->order_id}}" type="hidden" min="0" max="5" name="rating" placeholder="0 - 5" value="" required/>
-                                <input type="hidden" name="productname" value="{{$ors1->product_name}}">
-                                <input type="hidden" name="orderid" value="{{$ors1->order_id}}">
-                                <input class="m-auto" type="submit" value="Rate" style="padding-right:auto;">
-                            </form>
+                        <a type="button" data-id="{{$ors1->order_id}}" data-name="{{$ors1->product_name}}" data-toggle="modal" class="openModal text-ov" href="#detailModal">-> Rate This! <-</a>
                         </div>
                     </div>
                     @endforeach
@@ -460,27 +476,43 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     </div>
         
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
-    $(document).ready(function(){
-        // Check Radio-box
-        $(".rating input:radio").attr("checked", false);
+        $(document).ready(function(){
+            // Check Radio-box
+            $(".rating input:radio").attr("checked", false);
 
-        $('.rating input').click(function () {
-            $(".rating i").removeClass('checked');
-            $(this).parent().addClass('checked');
+            $('.rating input').click(function () {
+                $(".rating i").removeClass('checked');
+                $(this).parent().addClass('checked');
+            });
+
+            $('input:radio').change(
+            function(){
+                var productId = $(this).data('id');
+                var userRating = this.value;
+                document.getElementById("ratingvalue"+productId).value = userRating;
+            }); 
         });
-
-        $('input:radio').change(
-        function(){
+    </script>
+    <script>
+        $(document).on("click", ".openModal", function() {
             var productId = $(this).data('id');
-            var userRating = this.value;
-            document.getElementById("ratingvalue"+productId).value = userRating;
-        }); 
-    });
+            var productName = $(this).data('name');
+            var nama = document.getElementsByClassName('productName')[0];
+            nama.innerHTML = "<b>Rate This "+productName+"</b>";
+            for(var x=5; x>0; x--){
+                var rate = document.getElementsByClassName('rate'+x)[0];
+                rate.setAttribute("data-id", productId); 
+            }
+            var rateval = document.getElementsByClassName('ratingval')[0];
+            rateval.setAttribute("id", "ratingvalue"+productId);
+            document.getElementById("prodNameModal").value = productName;
+            document.getElementById("orderIdModal").value = productId;
+            $('#detailModal').modal('show');
+        });
     </script>
 </body>
 </html>
