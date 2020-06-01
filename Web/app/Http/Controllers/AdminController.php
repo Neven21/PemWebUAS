@@ -178,7 +178,9 @@ class AdminController extends Controller
             $name = $user['firstname'];
             if($checkorder->isEmpty())
             {
-                return 'no orders yet';
+                $orders = Product_order::all();
+                $totalincome = 0;
+                return view ('Admin.orderlist',['product_orders'=>$orders])->withTotal($totalincome)->withName($name);
             }
             else
             {
@@ -209,7 +211,13 @@ class AdminController extends Controller
             $categories = [];
             $qty = [];
             if($userorder->isEmpty()){
-                return view('Admin.nograph')->withName($name);
+                foreach($userorder as $usrorder){
+                    $categories[] = $usrorder->product_name;
+                }
+                foreach($quantity as $qtys){
+                    $qty[] = $qtys->qty;
+                }
+                return view ('Admin.graph',['categories'=>$categories],['qty'=>$qty])->withName($name)->withUserorder($userorder);
             }else{
                 foreach($userorder as $usrorder){
                     $categories[] = $usrorder->product_name;
@@ -217,7 +225,7 @@ class AdminController extends Controller
                 foreach($quantity as $qtys){
                     $qty[] = $qtys->qty;
                 }
-                return view ('Admin.graph',['categories'=>$categories],['qty'=>$qty])->withName($name);
+                return view ('Admin.graph',['categories'=>$categories],['qty'=>$qty])->withName($name)->withUserorder($userorder);
             }    
         }
         else

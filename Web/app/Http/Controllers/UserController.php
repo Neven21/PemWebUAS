@@ -203,7 +203,6 @@ class UserController extends Controller
             foreach($carts as $crt)
             {
                 $userorder = new User_order();
-                $rating = new Rating();
                 $products = Product::where('ProductName',$crt->product_name)->first();
                 $updatestock = $products->Stock - $crt->qty;
                 $products->Stock = $updatestock;
@@ -214,16 +213,7 @@ class UserController extends Controller
                 $userorder->qty = $crt->qty;
                 $userorder->created_at = date('Y-m-d');
                 $userorder->save();
-
-                $rating->username = $user->username;
-                $rating->product_name = $crt->product_name;
-                $rating->rating = 0;
-                $rating->save();
             }
-
-            // $updatestock = $products->Stock - $request->jumlah;
-            // $products->Stock = $updatestock;
-            // $products->save();
 
             $cart = Cart::where('username',$user['username'])->delete();
 
@@ -253,8 +243,8 @@ class UserController extends Controller
             $name = $user['firstname'];
             $ordershistory = User_order::where('username',$user->username)->where('rating','>=',1)->get();
             $ordershistory2 = User_order::where('username', $user->username)->where('rating','=',0)->get(); 
-            return view('User.orderhistory',['users_orders'=>$ordershistory],['users_orders2'=>$ordershistory2])->withName($name);
-            
+            $ordershistory3 = User_order::where('username', $user->username)->get(); 
+            return view('User.orderhistory',['users_orders'=>$ordershistory],['users_orders2'=>$ordershistory2])->withName($name)->withOrderhistory3($ordershistory3);
         }
         else
         {

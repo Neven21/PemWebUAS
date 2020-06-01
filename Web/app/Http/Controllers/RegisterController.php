@@ -61,7 +61,7 @@ class RegisterController extends Controller
             $file->move('uploads/users', $filename);
             $user->picture = $filename;
         }else{
-            $user->picture = '/';
+            $user->picture = 'default_pp.jpg';
         }
 
        $user->save();

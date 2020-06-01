@@ -349,10 +349,8 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="/bootstrap-4.0.0-dist/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
     <title>Authentic Restaurant</title>
     @if (Route::has('login'))
@@ -409,7 +407,7 @@ input[type=text]:placeholder, input[type=email]:placeholder, input[type=password
 
     <div class="full-height mx-auto" style="width:80%;">
         <div style="padding-top:50px;">
-            @if ($users_orders->isEmpty())
+            @if ($orderhistory3->isEmpty())
                 <div class="row text-center">  
                     <div class="col-sm-5 fadeIn first m-auto" id="formFooter">
                         <h1 class="card-title"><b>You don't have any orders in your history yet.</b></h1>
